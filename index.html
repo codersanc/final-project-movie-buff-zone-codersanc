@@ -6,12 +6,36 @@
     <meta charset="utf-8">
     <!-- Loading SemanticUI CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.css" />
+    <!-- Loading up custom fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Pacifico|Roboto" rel="stylesheet" />
     <!-- Loading custom stylesheet -->
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
     <!-- Main Content -->
-    
+    <div id="main-container" class="ui doubling stackable grid container">
+      <!-- Logo Row -->
+      <div class="row">
+        <div id="logo" class="sixteen wide column">
+          <h1>
+            The Movie Buff Zone!
+          </h1>
+        </div>
+      </div>
+      <!-- Search Bar -->
+      <div class="row">
+        <div id="search" class="sixteen wide column">
+          <form id="search-form" action="" method="post">
+            <div class="ui fluid action input">
+              <input type="text" placeholder="Search...">
+              <button class="ui icon button" type="submit">
+                <i class="search icon"></i>
+              </button>
+            </div>
+          </form> 
+        </div>
+      </div>
+    </div>
     <!-- Loading up JQuery -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <!-- Loading up JQuery UI -->
