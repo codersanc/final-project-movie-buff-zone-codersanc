@@ -11,28 +11,43 @@
     <!-- Loading custom stylesheet -->
     <link rel="stylesheet" href="css/styles.css" />
   </head>
-  <body>
+  <body class="site-background">
     <!-- Main Content -->
-    <div id="main-container" class="ui doubling stackable grid container">
+    <div id="main-container" class="ui doubling equal width center aligned stackable grid container marginTop30">
       <!-- Logo Row -->
       <div class="row">
         <div id="logo" class="sixteen wide column">
-          <h1>
-            The Movie Buff Zone!
-          </h1>
+          <div class="ui small image">
+            <img src="images/MBZ_logo.png">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="sixteen wide column">
+          <div class="ui large image">
+            <img src="images/MBZ_title.png">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="sixteen wide column">
+          <h3 class="ui inverted header">
+            Find and Compare Movies and TV shows!
+          </h3>
         </div>
       </div>
       <!-- Search Bar -->
-      <div class="row">
+      <div class="row marginTop30">
         <div id="search" class="sixteen wide column">
           <form id="search-form" action="" method="post">
-            <div class="ui fluid action input">
-              <input type="text" placeholder="Search...">
-              <button class="ui icon button" type="submit">
+            <div class="ui huge fluid action input marginTop30">
+              <input type="text" placeholder="Search for Movies, TV Series...">
+              <button class="ui blue right labeled icon huge button gradientColor">
                 <i class="search icon"></i>
+                Search
               </button>
             </div>
-          </form> 
+          </form>
         </div>
       </div>
     </div>

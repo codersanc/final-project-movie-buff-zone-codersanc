@@ -1,0 +1,9 @@
+body{
+	background-color: black;
+}
+.marginTop30 {
+	margin-top: 30px !important;
+}
+.gradientColor {
+	background: linear-gradient(to bottom right, #4C83FF, #2AFADF) !important;
+}
