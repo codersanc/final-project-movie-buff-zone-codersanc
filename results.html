@@ -2,8 +2,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Movie Buff Zone (MBZ)</title>
+    <title>MBZ: Search Results</title>
     <meta charset="utf-8">
+    <!-- Added Favicon -->
+    <link rel="shortcut icon" type="image/png" href="images/favicon.png"/>
     <!-- Loading SemanticUI CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.css" />
     <!-- Loading up custom fonts -->
@@ -20,8 +22,18 @@
           <div class="ui tiny image">
             <img src="images/MBZ_logo.png">
           </div>
-          <div class="ui medium image">
+          <div class="ui large image">
             <img src="images/MBZ_title.png">
+          </div>
+        </div>
+      </div>
+      <!-- Breadcrumbs -->
+      <div class="row">
+        <div id="search" class="sixteen wide column marginTop30">
+          <div class="ui huge breadcrumb">
+            <a class="section" href="index.html">Home</a>
+            <i class="right chevron icon divider"></i>
+            <div class="active section">Search Results</div>
           </div>
         </div>
       </div>
@@ -29,8 +41,8 @@
       <div class="row">
         <div id="search" class="sixteen wide column">
           <form id="search-form" action="results.html" method="post">
-            <div class="ui fluid action input marginTop30">
-              <input type="text" placeholder="Search for Movies, TV Series...">
+            <div class="ui fluid action large input">
+              <input type="text" placeholder="Search for Movies, TV Series..." value="Speed">
               <button class="ui blue right labeled icon button gradientColor">
                 <i class="search icon"></i>
                 Search
@@ -39,29 +51,11 @@
           </form>
         </div>
       </div>
-      <!-- Breadcrumbs -->
-      <div class="row">
-        <div id="search" class="sixteen wide column">
-          <div class="ui big breadcrumb">
-            <a class="section" href="index.html">Home</a>
-            <i class="right chevron icon divider"></i>
-            <div class="active section">Search Results</div>
-          </div>
-        </div>
-      </div>
       <!-- Filters -->
       <div class="row">
         <div class="ten wide column"></div>
         <div class="six wide column">
-          <h4 class="ui grey header">
-            Filters:
-          </h4>
-        </div>
-      </div>
-      <div class="row">
-        <div class="ten wide column"></div>
-        <div class="six wide column">
-          <div class="ui compact menu">
+          <div class="ui compact menu">  
             <div class="ui simple dropdown item">
               Year
               <i class="dropdown icon"></i>
@@ -72,7 +66,8 @@
               </div>
             </div>
           </div>
-          <div class="ui buttons">
+          <div class="ui right floated buttons">
+            <label>Show only:</label>
             <button class="ui toggle button">Movies</button>
             <button class="ui toggle button">TV Shows</button>
           </div>
@@ -80,10 +75,11 @@
       </div>
     </div>
     <!-- Results  -->
-    <div class="ui four column grid container">
+    <div class="ui four column double grid container">
+      <!-- First Row of Results -->
       <div class="row flexibleCards">
        <div class="column">
-          <div class="ui fluid link card">
+          <div class="ui fluid link raised card">
             <div class="image">
               <img src="images/mockup-images/movie-1.jpg">
             </div>
@@ -97,18 +93,28 @@
               </div>
             </div>
             <div class="extra content">
-              <span class="right floated">
-                Joined in 2013
-              </span>
-              <span>
-                <i class="user icon"></i>
-                75 Friends
-              </span>
+              <!-- Rating -->
+              <div class="ui small indicating progress active" data-percent="90">
+                <div class="bar" style="transition-duration: 300ms; width: 90%;">
+                  <div class="progress"></div>
+                </div>
+                <div class="label">90%</div>
+              </div>
+            </div>
+            <div class="extra content">
+              <div class="ui two buttons">
+                <button class="ui left floated primary button">
+                  Details
+                </button>
+                <button class="ui right floated button">
+                  Compare
+                </button>
+              </div>
             </div>
           </div>
         </div>
         <div class="column">
-          <div class="ui fluid link card">
+          <div class="ui fluid link raised card">
             <div class="image">
               <img src="images/mockup-images/movie-2.jpg">
             </div>
@@ -122,18 +128,28 @@
               </div>
             </div>
             <div class="extra content">
-              <span class="right floated">
-                Joined in 2013
-              </span>
-              <span>
-                <i class="user icon"></i>
-                75 Friends
-              </span>
+              <!-- Rating -->
+              <div class="ui small indicating progress active" data-percent="80">
+                <div class="bar" style="transition-duration: 300ms; width: 80%;">
+                  <div class="progress"></div>
+                </div>
+                <div class="label">80%</div>
+              </div>
+            </div>
+            <div class="extra content">
+              <div class="ui two buttons">
+                <button class="ui left floated primary button">
+                  Details
+                </button>
+                <button class="ui right floated button">
+                  Compare
+                </button>
+              </div>
             </div>
           </div>
         </div>
         <div class="column">
-          <div class="ui fluid link card">
+          <div class="ui fluid link raised card">
             <div class="image">
               <img src="images/mockup-images/movie-3.jpg">
             </div>
@@ -147,19 +163,29 @@
               </div>
             </div>
             <div class="extra content">
-              <span class="right floated">
-                Joined in 2013
-              </span>
-              <span>
-                <i class="user icon"></i>
-                75 Friends
-              </span>
+              <!-- Rating -->
+              <div class="ui small indicating progress active" data-percent="50">
+                <div class="bar" style="transition-duration: 300ms; width: 50%;">
+                  <div class="progress"></div>
+                </div>
+                <div class="label">50%</div>
+              </div>
+            </div>
+            <div class="extra content">
+              <div class="ui two buttons">
+                <button class="ui left floated primary button">
+                  Details
+                </button>
+                <button class="ui right floated button">
+                  Compare
+                </button>
+              </div>
             </div>
           </div>
         </div>
         <div class="column">
-          <div class="ui fluid link card">
-            <div class="image">
+          <div class="ui fluid link raised card">
+            <div class="ui image">
               <img src="images/mockup-images/movie-4.jpg">
             </div>
             <div class="content">
@@ -168,17 +194,27 @@
                 June 13, 1997
               </div>
               <div class="description">
-                Sandra Bullock and Jason Patric star as a young couple whose dream cruise turns to terror when a lunatic computer genius (Willem Dafoe) sets a new course for destruction.
+                Sandra Bullock and Jason Patric star as a young couple whose dream cruise turns to terror when a lunatic computer genius (Willem Dafoe) sets a new course for destruction...
               </div>
             </div>
             <div class="extra content">
-              <span class="right floated">
-                Joined in 2013
-              </span>
-              <span>
-                <i class="user icon"></i>
-                75 Friends
-              </span>
+              <!-- Rating -->
+              <div class="ui small indicating progress active" data-percent="60">
+                <div class="bar" style="transition-duration: 300ms; width: 60%;">
+                  <div class="progress"></div>
+                </div>
+                <div class="label">60%</div>
+              </div>
+            </div>
+            <div class="extra content">
+              <div class="ui two buttons">
+                <button class="ui left floated primary button">
+                  Details
+                </button>
+                <button class="ui right floated button">
+                  Compare
+                </button>
+              </div>
             </div>
           </div>
         </div>

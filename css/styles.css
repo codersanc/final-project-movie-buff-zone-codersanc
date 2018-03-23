@@ -21,6 +21,11 @@ site-background{
     transform: translateY(-60%);
 }
 
+/* Style to justify card descriptions */
+.card .content .description {
+	text-align: justify;
+}
+
 /* To felx cards vertically to match height */
 .flexibleCards .column{
 	display: flex !important;
