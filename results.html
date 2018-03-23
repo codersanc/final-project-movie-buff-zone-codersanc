@@ -1,17 +1,189 @@
-<!-- Movie Buff Zone : Search Results HTML Page -->
+<!-- Movie Buff Zone : main HTML Page -->
 <!DOCTYPE html>
 <html>
   <head>
-    <title>MBZ: Search Results</title>
+    <title>Movie Buff Zone (MBZ)</title>
     <meta charset="utf-8">
     <!-- Loading SemanticUI CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.css" />
+    <!-- Loading up custom fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Pacifico|Roboto" rel="stylesheet" />
     <!-- Loading custom stylesheet -->
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.css" />
   </head>
-  <body>
+  <body class="site-background">
     <!-- Main Content -->
-    
+    <div id="main" class="ui equal width stackable grid container marginTop30">
+      <!-- Logo Row -->
+      <div class="row">
+        <div id="logo" class="sixteen wide column">
+          <div class="ui tiny image">
+            <img src="images/MBZ_logo.png">
+          </div>
+          <div class="ui medium image">
+            <img src="images/MBZ_title.png">
+          </div>
+        </div>
+      </div>
+      <!-- Search Bar -->
+      <div class="row">
+        <div id="search" class="sixteen wide column">
+          <form id="search-form" action="results.html" method="post">
+            <div class="ui fluid action input marginTop30">
+              <input type="text" placeholder="Search for Movies, TV Series...">
+              <button class="ui blue right labeled icon button gradientColor">
+                <i class="search icon"></i>
+                Search
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <!-- Breadcrumbs -->
+      <div class="row">
+        <div id="search" class="sixteen wide column">
+          <div class="ui big breadcrumb">
+            <a class="section" href="index.html">Home</a>
+            <i class="right chevron icon divider"></i>
+            <div class="active section">Search Results</div>
+          </div>
+        </div>
+      </div>
+      <!-- Filters -->
+      <div class="row">
+        <div class="ten wide column"></div>
+        <div class="six wide column">
+          <h4 class="ui grey header">
+            Filters:
+          </h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="ten wide column"></div>
+        <div class="six wide column">
+          <div class="ui compact menu">
+            <div class="ui simple dropdown item">
+              Year
+              <i class="dropdown icon"></i>
+              <div class="menu">
+                <!-- Add Items with JavaScript -->
+                <div class="item">2018</div>
+                <div class="item">2017</div>
+              </div>
+            </div>
+          </div>
+          <div class="ui buttons">
+            <button class="ui toggle button">Movies</button>
+            <button class="ui toggle button">TV Shows</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Results  -->
+    <div class="ui four column grid container">
+      <div class="row flexibleCards">
+       <div class="column">
+          <div class="ui fluid link card">
+            <div class="image">
+              <img src="images/mockup-images/movie-1.jpg">
+            </div>
+            <div class="content">
+              <div class="header">Speed</div>
+              <div class="meta">
+                June 9, 1994
+              </div>
+              <div class="description">
+                Los Angeles SWAT cop Jack Traven is up against bomb expert Howard Payne, who's after major ransom money. First it's a rigged elevator in a very tall building. Then it's a rigged bus--if it slows, it will blow, bad…
+              </div>
+            </div>
+            <div class="extra content">
+              <span class="right floated">
+                Joined in 2013
+              </span>
+              <span>
+                <i class="user icon"></i>
+                75 Friends
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <div class="ui fluid link card">
+            <div class="image">
+              <img src="images/mockup-images/movie-2.jpg">
+            </div>
+            <div class="content">
+              <div class="header">Speed Racer</div>
+              <div class="meta">
+                May 9, 2008
+              </div>
+              <div class="description">
+                Speed Racer is the tale of a young and brilliant racing driver. When corruption in the racing leagues costs his brother his life, he must team up with the police and the mysterious Racer X to bring an end to the…
+              </div>
+            </div>
+            <div class="extra content">
+              <span class="right floated">
+                Joined in 2013
+              </span>
+              <span>
+                <i class="user icon"></i>
+                75 Friends
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <div class="ui fluid link card">
+            <div class="image">
+              <img src="images/mockup-images/movie-3.jpg">
+            </div>
+            <div class="content">
+              <div class="header">Need for Speed</div>
+              <div class="meta">
+                March 13, 2014
+              </div>
+              <div class="description">
+                The film revolves around a local street-racer who partners with a rich and arrogant business associate, only to find himself framed by his colleague and sent to prison. After he gets out, he joins a New York-to…
+              </div>
+            </div>
+            <div class="extra content">
+              <span class="right floated">
+                Joined in 2013
+              </span>
+              <span>
+                <i class="user icon"></i>
+                75 Friends
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <div class="ui fluid link card">
+            <div class="image">
+              <img src="images/mockup-images/movie-4.jpg">
+            </div>
+            <div class="content">
+              <div class="header">Speed 2: Cruise Control</div>
+              <div class="meta">
+                June 13, 1997
+              </div>
+              <div class="description">
+                Sandra Bullock and Jason Patric star as a young couple whose dream cruise turns to terror when a lunatic computer genius (Willem Dafoe) sets a new course for destruction.
+              </div>
+            </div>
+            <div class="extra content">
+              <span class="right floated">
+                Joined in 2013
+              </span>
+              <span>
+                <i class="user icon"></i>
+                75 Friends
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- Loading up JQuery -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <!-- Loading up JQuery UI -->

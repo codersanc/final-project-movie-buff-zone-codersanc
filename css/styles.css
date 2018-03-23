@@ -1,14 +1,27 @@
-body{
+site-background{
+	background: url("../images/background.jpg") no-repeat;
+	background-size: cover;
 	background-color: black;
 }
+
+/* General class for top margins */
 .marginTop30 {
 	margin-top: 30px !important;
 }
+
+/* General class to give gradient background */
 .gradientColor {
 	background: linear-gradient(to bottom right, #4C83FF, #2AFADF) !important;
 }
+
+/* Class for vertically centering main container */
 #main-container {
 	position: relative;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translateY(-60%);
+}
+
+/* To felx cards vertically to match height */
+.flexibleCards .column{
+	display: flex !important;
 }
