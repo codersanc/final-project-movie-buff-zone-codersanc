@@ -1,4 +1,4 @@
-<!-- Movie Buff Zone : main HTML Page -->
+<!-- Movie Buff Zone : Compare Movies/TV Shows Page -->
 <!DOCTYPE html>
 <html>
   <head>
@@ -15,8 +15,30 @@
   </head>
   <body class="site-background">
     <!-- Main Content -->
-    <div id="main-container" class="ui doubling equal width center aligned stackable grid container">
-      
+    <div id="main" class="ui equal width stackable grid container marginTop30">
+      <!-- Logo Row -->
+      <div class="row logo">
+        <div id="logo" class="sixteen wide column">
+          <div class="ui tiny image">
+            <img src="images/MBZ_logo.png">
+          </div>
+          <div class="ui large image">
+            <img src="images/MBZ_title.png">
+          </div>
+        </div>
+      </div>
+      <!-- Breadcrumbs -->
+      <div class="row">
+        <div id="search" class="sixteen wide column marginTop30">
+          <div class="ui huge breadcrumb">
+            <a class="section" href="index.html">Home</a>
+            <i class="right chevron icon divider"></i>
+            <a class="section" href="results.html">Search Results</a>
+            <i class="right chevron icon divider"></i>
+            <div class="section">Compare</div>
+          </div>
+        </div>
+      </div>
     </div>
     <!-- Loading up JQuery -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>

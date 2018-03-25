@@ -1,7 +1,10 @@
-site-background{
-	background: url("../images/background.jpg") no-repeat;
-	background-size: cover;
-	background-color: black;
+body{
+	display: none;
+}
+
+.site-background {
+	/*background: url("../images/background.jpg");
+	background-size: cover;*/
 }
 
 /* General class for top margins */
@@ -29,4 +32,60 @@ site-background{
 /* To felx cards vertically to match height */
 .flexibleCards .column{
 	display: flex !important;
+}
+
+/* Thumb mouse over logo */
+.logo {
+	cursor: pointer;
+}
+
+/* Class to force hide elements */
+.hiddenUnit {
+	display: none !important;
+}
+
+/* Make the filter button float right */
+.filters button {
+	float: right;
+}
+
+/* Styling the comparator bar and its children */
+#comparator-bar {
+	position: fixed;
+	z-index: 9999;
+	bottom: 0;
+	left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 0;
+}
+
+#comparator-bar h4 {
+	display: inline-block;
+	line-height: 1em;
+	padding: 0.7em;
+	font-size:1em;
+	margin-bottom: 0px;
+}
+
+#comparator-bar span {
+	line-height: 1em;
+	margin-bottom: 0px;
+	vertical-align: middle;
+	font-size:1em;
+	padding: 0.7em;
+}
+
+#comparator-bar button {
+	padding: 0.7em;
+	font-size:1em;
+	margin-left: 30px;
+}
+
+/* Styling the animation on click of compare */
+.ui-effects-transfer { 
+	border: 2px dotted grey;
+	background-color: white;
+	opacity: 0.6;
+    filter: alpha(opacity=60); /* For IE8 and earlier */
+	z-index: 9998;
 }

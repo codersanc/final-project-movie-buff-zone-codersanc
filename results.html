@@ -1,4 +1,4 @@
-<!-- Movie Buff Zone : main HTML Page -->
+<!-- Movie Buff Zone : Search Results Page -->
 <!DOCTYPE html>
 <html>
   <head>
@@ -17,7 +17,7 @@
     <!-- Main Content -->
     <div id="main" class="ui equal width stackable grid container marginTop30">
       <!-- Logo Row -->
-      <div class="row">
+      <div class="row logo">
         <div id="logo" class="sixteen wide column">
           <div class="ui tiny image">
             <img src="images/MBZ_logo.png">
@@ -52,7 +52,16 @@
         </div>
       </div>
       <!-- Filters -->
-      <div class="row">
+      <div class="row filters">
+        <div class="sixteen wide column">
+          <h3 class="ui left grey floated header">4 Results for 'Speed'</h3>
+          <button id="filters-toggle" class="ui right labeled right floating icon button">
+            <i class="caret down icon"></i>
+            Filters
+          </button>
+        </div>
+      </div>
+      <div id="filters-controls" class="row" style="display: none;">
         <div class="ten wide column"></div>
         <div class="six wide column">
           <div class="ui compact menu">  
@@ -75,7 +84,7 @@
       </div>
     </div>
     <!-- Results  -->
-    <div class="ui four column double grid container">
+    <div class="ui four column equal width stackable grid container">
       <!-- First Row of Results -->
       <div class="row flexibleCards">
        <div class="column">
@@ -94,7 +103,7 @@
             </div>
             <div class="extra content">
               <!-- Rating -->
-              <div class="ui small indicating progress active" data-percent="90">
+              <div class="ui small indicating progress active" data-percent="90" data-tooltip="User Rating" data-inverted="">
                 <div class="bar" style="transition-duration: 300ms; width: 90%;">
                   <div class="progress"></div>
                 </div>
@@ -103,12 +112,18 @@
             </div>
             <div class="extra content">
               <div class="ui two buttons">
-                <button class="ui left floated primary button">
-                  Details
-                </button>
-                <button class="ui right floated button">
-                  Compare
-                </button>
+                <div class="ui animated primary button" tabindex="0">
+                  <div class="visible content">Details</div>
+                  <div class="hidden content">
+                    <i class="right arrow icon"></i>
+                  </div>
+                </div>
+                <div class="ui animated button compare" tabindex="0" data="Speed">
+                  <div class="visible content">Compare</div>
+                  <div class="hidden content">
+                    <i class="plus icon"></i>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -129,7 +144,7 @@
             </div>
             <div class="extra content">
               <!-- Rating -->
-              <div class="ui small indicating progress active" data-percent="80">
+              <div class="ui small indicating progress active" data-percent="80" data-tooltip="User Rating" data-inverted="">
                 <div class="bar" style="transition-duration: 300ms; width: 80%;">
                   <div class="progress"></div>
                 </div>
@@ -138,12 +153,18 @@
             </div>
             <div class="extra content">
               <div class="ui two buttons">
-                <button class="ui left floated primary button">
-                  Details
-                </button>
-                <button class="ui right floated button">
-                  Compare
-                </button>
+                <div class="ui animated primary button" tabindex="0">
+                  <div class="visible content">Details</div>
+                  <div class="hidden content">
+                    <i class="right arrow icon"></i>
+                  </div>
+                </div>
+                <div class="ui animated button compare" tabindex="0" data="Speed Racer">
+                  <div class="visible content">Compare</div>
+                  <div class="hidden content">
+                    <i class="plus icon"></i>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -164,7 +185,7 @@
             </div>
             <div class="extra content">
               <!-- Rating -->
-              <div class="ui small indicating progress active" data-percent="50">
+              <div class="ui small indicating progress active" data-percent="50" data-tooltip="User Rating" data-inverted="">
                 <div class="bar" style="transition-duration: 300ms; width: 50%;">
                   <div class="progress"></div>
                 </div>
@@ -173,12 +194,18 @@
             </div>
             <div class="extra content">
               <div class="ui two buttons">
-                <button class="ui left floated primary button">
-                  Details
-                </button>
-                <button class="ui right floated button">
-                  Compare
-                </button>
+                <div class="ui animated primary button" tabindex="0">
+                  <div class="visible content">Details</div>
+                  <div class="hidden content">
+                    <i class="right arrow icon"></i>
+                  </div>
+                </div>
+                <div class="ui animated button compare" tabindex="0" data="Need for Speed">
+                  <div class="visible content">Compare</div>
+                  <div class="hidden content">
+                    <i class="plus icon"></i>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -199,7 +226,7 @@
             </div>
             <div class="extra content">
               <!-- Rating -->
-              <div class="ui small indicating progress active" data-percent="60">
+              <div class="ui small indicating progress active" data-percent="60" data-tooltip="User Rating" data-inverted="">
                 <div class="bar" style="transition-duration: 300ms; width: 60%;">
                   <div class="progress"></div>
                 </div>
@@ -208,17 +235,30 @@
             </div>
             <div class="extra content">
               <div class="ui two buttons">
-                <button class="ui left floated primary button">
-                  Details
-                </button>
-                <button class="ui right floated button">
-                  Compare
-                </button>
+                <div class="ui animated primary button" tabindex="0">
+                  <div class="visible content">Details</div>
+                  <div class="hidden content">
+                    <i class="right arrow icon"></i>
+                  </div>
+                </div>
+                <div class="ui animated button compare" tabindex="0" data="Speed 2: Crusie Control">
+                  <div class="visible content">Compare</div>
+                  <div class="hidden content">
+                    <i class="plus icon"></i>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+    <!-- Comparator bar where selected movies will be added -->
+    <div id="comparator-bar" class="ui inverted tiny segment" style="display: none;">
+      <h4 class="ui left floated header">Comparing:</h4>
+      <button class="ui right floated tiny primary button">
+        Compare
+      </button>
     </div>
     <!-- Loading up JQuery -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
