@@ -11,6 +11,14 @@
 /* Global variable that holds items being compared */
 var compareItems = [];
 
+/* JQuery Plugin - FakeLoader Spinner */
+$("#fakeLoader").fakeLoader({    
+    timeToHide:500, //Time in milliseconds for fakeLoader disappear
+    zIndex:99999, // Default zIndex
+    spinner:"spinner1",//Options: 'spinner1', 'spinner2', 'spinner3', 'spinner4', 'spinner5', 'spinner6', 'spinner7' 
+    bgColor:"#4C83FF" //Hex, RGB or RGBA colors   
+});
+
 /**
  * Function to add a title to compare
  * 
