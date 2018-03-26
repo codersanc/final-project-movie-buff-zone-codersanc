@@ -119,8 +119,13 @@ function createCompareToken (addToCompareButton, comparatorBar) {
 
 /* Actions to perform once document is ready */
 $(document).ready(function(){
+
 	/* Added window load animation */
 	$("body").fadeIn(1000);
+	
+	/* Settibg nasthead image dimensions */
+	$(".masthead-image").width($(".masthead").outerWidth());
+	$(".masthead-image").height($(".masthead").outerHeight());
 
 	/* Defining logo click action */
 	$(".logo").click(function(){
