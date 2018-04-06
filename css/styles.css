@@ -20,8 +20,8 @@ body{
 /* Class for vertically centering main container */
 #main-container {
   position: relative;
-    top: 50%;
-    transform: translateY(-60%);
+  top: 50%;
+  transform: translateY(-60%);
 }
 
 /* Style to justify card descriptions */
@@ -90,6 +90,7 @@ body{
   z-index: 9998;
 }
 
+/* Styling the masthead hero image on the movie details page (Blurred Effect) */
 .masthead-image {
   background: linear-gradient(to bottom,rgba(0, 0, 0, 0.80),rgba(0, 0, 0, 0.20)), url("../images/mockup-images/masthead-1.jpg") no-repeat !important;
   background-size: cover !important;
@@ -102,24 +103,97 @@ body{
   top:0;
   left:0;
   overflow: hidden;
+  transform: scale(1.1);
+  max-width: 100%;
+  overflow: hidden !important;
+  height: 1000px !important;
 }
 
+/* Styling the masthead container on the movie details page */
 .masthead {
   background: transparent !important;
-  -moz-box-shadow:    inset 0 0 60px #000000 !important;
+  -moz-box-shadow: inset 0 0 60px #000000 !important;
   -webkit-box-shadow: inset 0 0 60px #000000 !important;
-  box-shadow:         inset 0 0 60px #000000 !important;
+  box-shadow: inset 0 0 60px #000000 !important;
 }
 
+/* Styling the masthead breadcrumb chevron on the movie details page */
 .masthead .breadcrumb .chevron {
   color: white !important;
   opacity: 1 !important;
 }
 
+/* Styling the masthead breadcrumbs on the movie details page */
 .masthead .breadcrumb a {
   color: #2AFADF;
 }
 
+/* Styling the movie details container */
 .details-container {
-	background-color: white;
+  background-color: white;
+}
+
+.detailsRaisedRow {
+  box-shadow: 0px 0px 10px rgb(0,0,0,.2);
+  border-radius: 10px;
+}
+
+/* Generic style class to make elements inline-block */
+.inlineBlock {
+  display: inline-block !important;
+}
+
+/* Gives a left margin of 20px */
+.marginLeft20 {
+  margin-left: 20px !important;
+}
+
+/* Forece white colored text */
+.whiteText {
+  color: white !important;
+}
+
+/* Force width of cards in cast */
+.cast .card {
+  width: calc((100% - 58px) / 4) !important; 
+}
+
+/* Styling the cast card headers */
+.cast .card .header {
+  font-size: 16px !important;
+}
+
+/* Styling the cast card meta info */
+.cast .card .meta {
+  font-size: 14px !important;
+  margin-top:5px !important;
+}
+
+/* Styling the rating icon */
+.ratingIcon {
+  height: auto !important;
+  width: auto !important;
+  margin-right: 5px !important;
+  margin-left: 5px !important;
+  padding: 5px !important;
+}
+
+/* Styling the cast cards on the compare page */
+.comparing .cast .card {
+  width: calc((100% - 41px) / 4) !important; 
+}
+
+/* Styling the cast card images on the compare page */
+.comparing .cast .card .image{
+  margin-right: 0px !important;
+}
+
+/* Styling the cast card headers on the compare page */
+.comparing .cast .card .header{
+  font-size: 13px !important;
+}
+
+/* Increasing the size of the movie headers within cards */
+.comparing .mainCards > .header:first-child{
+  font-size: 25px !important;
 }

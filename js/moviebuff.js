@@ -15,8 +15,8 @@ var compareItems = [];
 $("#fakeLoader").fakeLoader({    
     timeToHide:500, //Time in milliseconds for fakeLoader disappear
     zIndex:99999, // Default zIndex
-    spinner:"spinner1",//Options: 'spinner1', 'spinner2', 'spinner3', 'spinner4', 'spinner5', 'spinner6', 'spinner7' 
-    bgColor:"#4C83FF" //Hex, RGB or RGBA colors   
+    spinner:"spinner1", //Options: 'spinner1', 'spinner2', 'spinner3', 'spinner4', 'spinner5', 'spinner6', 'spinner7' 
+    bgColor:"#4C83FF" //Hex, RGB or RGBA colors
 });
 
 /**
@@ -34,7 +34,7 @@ function addToCompare(addToCompareButton, comparatorBar) {
 
 	/* Setting up JQuery UI animation options */
 	var options = { to: "#comparator-bar", className: "ui-effects-transfer"};
-	
+
 	/* Finding the closest card element to the add to compare button & applying animation */
 	addToCompareButton.closest(".card").effect("transfer", options, 500);
 
@@ -109,12 +109,20 @@ function createCompareToken (addToCompareButton, comparatorBar) {
 
 	/* Created token delete icon */
 	var tokenIcon = $("<i class='delete icon'></i>");
-	
+
 	/* Appending newly created token elements */
 	token.append(tokenContent).append(tokenIcon);
 	comparatorBar.append(token);
 
 	return token;
+}
+
+function showDetails() {
+	window.location.href="details.html";
+}
+
+function comparisonPage(){
+	window.location.href="compare.html";	
 }
 
 /* Actions to perform once document is ready */
@@ -145,6 +153,31 @@ $(document).ready(function(){
 			controlsPanel.slideDown("1000");
 		}
 	});
+
+	/* Binding the click of results cards - takes to details page */
+	$(".card .primary").click(function(){
+		showDetails();
+	});
+
+	/* Binding the click of compare titles button once movies have been selected */
+	$("#compare-titles").click(function(){
+		comparisonPage();
+	});
+
+	/* Creating popup for the rating icon */
+	if($('.ratingIcon').length!=0)
+	$('.ratingIcon').popup();
+
+	/* Adjusting cast card height to match either column */
+	if($('.first').length!=0) {
+		var firstColumnCardHeight = $(".first .cast .card").height();
+		var secondColumnCardHeight = $(".second .cast .card").height();
+		if (firstColumnCardHeight>secondColumnCardHeight){
+			$(".second .cast .card").height($(".first .cast .card").height());
+		} else {
+			$(".first .cast .card").height($(".second .cast .card").height());
+		}
+	}
 
 	/* Binding compare / remove buttons to allow add to compare / remove from compare */
 	$(".compare").click(function(){

@@ -16,9 +16,10 @@
     <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body class="site-background">
+    <div id="fakeLoader"></div>
     <div class="masthead-image"></div>
     <!-- Main Content -->
-    <div id="main" class="ui inverted vertical masthead aligned segment">
+    <div id="main" class="ui vertical masthead aligned segment">
       <div class="ui equal width stackable grid container marginTop30">
         <!-- Logo Row -->
         <div class="row logo">
@@ -39,7 +40,7 @@
               <i class="ui right white chevron icon divider"></i>
               <a class="section" href="results.html">Search Results</a>
               <i class="right chevron icon divider"></i>
-              <div class="active section">Movie Details: Speed</div>
+              <div class="active section whiteText">Movie Details: Speed</div>
             </div>
           </div>
         </div>
@@ -58,30 +59,139 @@
           </div>
         </div>
         <div class="row marginTop30">
-          <div class = "six wide left floated column">
+          <div class = "five wide left floated column">
             <img id="poster" src="images/mockup-images/movie-1.jpg" class="ui image"/>
           </div>
           <div class="ten wide column">
-            <h1 class="ui inverted header">Speed</h1>
-            <h4 class="ui inverted header">1994</h4>
+            <h1 class="ui inverted header inlineBlock">Speed</h1><h4 class="ui grey inverted header inlineBlock marginLeft20">(1994)</h4>
             <!-- Rating -->
             <div class="ui small indicating inverted progress active" data-percent="90" data-tooltip="User Rating" data-inverted="">
               <div class="bar" style="transition-duration: 300ms; width: 90%;">
                 <div class="progress"></div>
               </div>
-              <div class="label">90%</div>
+              <div class="label whiteText">90%</div>
+            </div>
+            <div>
+              <h3 class="ui inverted header">Overview</h3>
+              <div class="ui fluid text container whiteText">
+                Los Angeles SWAT cop Jack Traven is up against bomb expert Howard Payne, who's after major ransom money. First it's a rigged elevator in a very tall building. Then it's a rigged bus--if it slows, it will blow, bad enough any day, but a nightmare in LA traffic. And that's still not the end.
+              </div>
+            </div>
+            <div class="ui fitted divider"></div>
+            <div>
+              <h3 class="ui inverted header marginTop30">Featured Crew</h3>
+              <div class="ui fluid text container whiteText">
+                <p>Screenplay: Graham Yost</p>
+                <p>Director: Jan de Bont</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
       <div class="ui fluid container marginTop30 details-container">
-        <h2 class="ui header">Content</h2>
+        <div class="ui equal width stackable three column divided grid container">
+          <div class="row">
+            <div class="sixteen wide column">
+              <h2 class="ui header marginTop30">Details</h2>
+            </div>
+          </div>
+          <div class="row detailsRaisedRow">
+            <div class="column">
+              <h3>Release Information:</h3>
+              <p>
+                <i class="us flag"></i>June 9, 1994
+              </p>
+              <p>
+                <strong>Status: </strong>Released
+              </p>
+              <p>
+                <strong>Budget: </strong>$30,000,000.00
+              </p>
+              <p>
+                <strong>Revenue: </strong>$350,448,145.00
+              </p>
+            </div>
+            <div class="column">
+              <h3>Other Facts:</h3>
+              <p>
+                <strong>Rating: </strong>
+                <span class="ui tiny inverted segment ratingIcon" data-content="Under 17 requires accompanying parent or adult guardian 21 or older. The parent/guardian is required to stay with the child under 17 through the entire movie, even if the parent gives the child/teenager permission to see the film alone. These films may contain strong profanity, graphic sexuality, nudity, strong violence, horror, gore, and strong drug use. A movie rated R for profanity often has more severe or frequent language than the PG-13 rating would permit. An R-rated movie may have more blood, gore, drug use, nudity, or graphic sexuality than a PG-13 movie would admit." data-variation="wide inverted">R</span>
+                <span>Theatrical</span>
+              </p>
+              <p>
+                <strong>Runtime: </strong>1h 56m
+              </p>
+              <p>
+                <strong>Original Language: </strong>English
+              </p>
+            </div>
+            <div class="column">
+              <h3>Genres:</h3>
+              <p class="ui raised segment inlineBlock">Action</p>
+              <p class="ui raised segment inlineBlock">Crime</p>
+              <p class="ui raised segment inlineBlock">Adventure</p>
+            </div>
+          </div>
+          <div class="row marginTop30 detailsRaisedRow">
+            <div class="column">
+              <h3 class="ui header">Top Cast:</h3>
+              <div class="ui cards cast">
+                <div class="card">
+                  <div class="image">
+                    <img src="images/mockup-images/cast-1.jpg">
+                  </div>
+                  <div class="content">
+                    <div class="header">Keanu Reeves</div>
+                    <div class="meta">
+                      Jack Traven
+                    </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="image">
+                    <img src="images/mockup-images/cast-2.jpg">
+                  </div>
+                  <div class="content">
+                    <div class="header">Dennis Hopper </div>
+                    <div class="meta">
+                      Howard Payne
+                    </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="image">
+                    <img src="images/mockup-images/cast-3.jpg">
+                  </div>
+                  <div class="content">
+                    <div class="header">Sandra Bullock</div>
+                    <div class="meta">
+                      Annie Porter
+                    </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="image">
+                    <img src="images/mockup-images/cast-4.jpg">
+                  </div>
+                  <div class="content">
+                    <div class="header">Joe Morton</div>
+                    <div class="meta">
+                      Capt. McMahon
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <!-- Loading up JQuery -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <!-- Loading up JQuery UI -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+    <!-- Loading up Semantic JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
     <!-- Loading up Axios API -->
     <script type="text/javascript" src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <!-- Loading JQuery Plugin : FakeLoader -->
