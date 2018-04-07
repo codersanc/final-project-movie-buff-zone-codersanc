@@ -41,6 +41,9 @@ function addToCompare(addToCompareButton, comparatorBar) {
 	/* Creating compare token in the compare bar */
 	var token = createCompareToken(addToCompareButton, comparatorBar);
 
+	/* Setting the title in cookie */
+	setCompareCookie(addToCompareButton);
+
 	/* Binding the 'x' icon on the token to remove it */
 	token.find("i").click(function(){
 		removeFromCompare(addToCompareButton, comparatorBar, token);
@@ -57,6 +60,53 @@ function addToCompare(addToCompareButton, comparatorBar) {
 			$("div[data='" + value + "']").removeClass("disabled");
 		});
 	}
+}
+
+/**
+ * This function sets the comparison title in the Cookie
+ * 
+ * @param {[Object]} addToCompareButton - JQuery object of the compare button that was clicked 
+ */
+function setCompareCookie(addToCompareButton){
+	if(typeof Cookies === 'undefined')
+	return null;
+	var titles = [];
+	/* Fetching the Cookie */
+	var cookieValue = Cookies.get("title");
+	/* Checking if cookie was stored or null */ 
+	if (typeof cookieValue != 'undefined' && cookieValue!=null) {
+		titles = cookieValue.split(","); // Splitting by comma
+	}
+	/* Adding the new title to the array */
+	titles.push(addToCompareButton.attr("data"));
+	/* Setting the cookie */
+	Cookies.set('titles', JSON.stringify(titles), {
+		expires:2
+	});
+}
+
+/**
+ * This function removes the comparison title from the Cookie
+ * 
+ * @param {[Object]} addToCompareButton - JQuery object of the compare button that was clicked 
+ */
+function removeCompareCookie(addToCompareButton) {
+	if(typeof Cookies === 'undefined')
+	return null;
+	var titles = [];
+	/* Fetching the Cookie */
+	var cookieValue = Cookies.get("title");
+	if (typeof cookieValue != 'undefined' && cookieValue!=null) {
+		titles = cookieValue.split(","); // Splitting by comma
+	}
+	/* Checking at which index the title is */
+	var index = $.inArray(addToCompareButton.attr("data"), titles);
+	/* Removing the title from the array */
+	if (index>=0) titles.splice(index, 1);
+	/* Setting the new array in the cookie */
+	Cookies.set('titles', JSON.stringify(titles), {
+		expires:2
+	});
 }
 
 /**
@@ -77,6 +127,9 @@ function removeFromCompare (addToCompareButton, comparatorBar, token) {
 	/* Removing item from compare Items array */
 	var index = $.inArray(addToCompareButton.attr("data"), compareItems);
 	if (index>=0) compareItems.splice(index, 1);
+
+	/* Removing item from cookie */
+	removeCompareCookie(addToCompareButton);
 
 	/* Enabling all compare buttons as we are no longer at limit */
 	$(".compare").removeClass("disabled");
@@ -117,10 +170,12 @@ function createCompareToken (addToCompareButton, comparatorBar) {
 	return token;
 }
 
+/* This function takes the user to the details page of the movie */
 function showDetails() {
 	window.location.href="details.html";
 }
 
+/* his function takes the user to the comparison page */
 function comparisonPage(){
 	window.location.href="compare.html";	
 }
@@ -170,10 +225,10 @@ $(document).ready(function(){
 
 	/* Adjusting cast card height to match either column */
 	if($('.first').length!=0) {
-		var firstColumnCardHeight = $(".first .cast .card").height();
-		var secondColumnCardHeight = $(".second .cast .card").height();
-		if (firstColumnCardHeight>secondColumnCardHeight){
-			$(".second .cast .card").height($(".first .cast .card").height());
+		var firstColumnCardHeight = $(".first .cast .card").height(); // Getting the height of the cards in the first column
+		var secondColumnCardHeight = $(".second .cast .card").height(); // Getting the height of the cards in the second column
+		if (firstColumnCardHeight>secondColumnCardHeight){ // Comparing heights and setting to the larger value
+			$(".second .cast .card").height($(".first .cast .card").height()); 
 		} else {
 			$(".first .cast .card").height($(".second .cast .card").height());
 		}
