@@ -4,6 +4,8 @@ Hi! This is a prototype of the upcoming '**The Movie Buff Zone**' website (Or MB
 
 This is a class project for **LIS-637-01** at **Pratt Institute**
 
+The data seen in this prototype is completely hardcoded for testing purpose. Kindly wait for the official release to see this website in full-fledged action!
+
 ## Where?
 
 Please access the prototype at the following link - 
