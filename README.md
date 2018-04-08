@@ -21,6 +21,7 @@ To use the prototype, the following **3 tasks** can be performed -
 ### Task 1: Search for a movie title
 
 Note: In this prototype, the data is canned, so please only search using the keyword 'Speed'
+
 Steps -
 1. Open MBZ Homepage - http://mysite.pratt.edu/~skumar6/MBZ/
 2. Click on the **search bar**
@@ -30,6 +31,7 @@ Steps -
 ### Task 2: View the details of a movie title from the search results page
 
 Note: In this prototype, the data is canned, so please only view details of the movie 'Speed'
+
 Steps -
 1. From the **search results page** (landed from task 1), scroll down to locate the movie '**Speed**'
 2. In the search result card for the movie '**Speed**', locate the blue button labeled '**Details**'
@@ -38,6 +40,7 @@ Steps -
 ### Task 3: Return to the search results page and add 2 movies for comparison
 
 Note: In this prototype, the data is canned, so please only add movies 'Speed' and 'Speed Racer' for comparison
+
 Steps -
 1. From the **details page** (landed from task 2), either use the **breadcrumbs** to go back to the '**Search results**' page, or use the browser **back button**.
 2. Once on the '**Search Results**' page, scroll down and locate movies '**Speed**' and '**Speed Racer**'
