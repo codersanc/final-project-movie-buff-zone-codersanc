@@ -83,6 +83,12 @@ body{
   margin-left: 30px;
 }
 
+/* Controlling the height of the number of results header */
+.resultsLine{
+  margin-bottom: 0 !important;
+  line-height: 32px !important;
+}
+
 /* Styling the animation on click of compare */
 .ui-effects-transfer { 
   border: 2px dotted grey;
@@ -144,6 +150,11 @@ body{
 /* Generic style class to make elements inline-block */
 .inlineBlock {
   display: inline-block !important;
+}
+
+/* Gives a left margin of 15px */
+.marginLeft15{
+  margin-left: 15px !important;
 }
 
 /* Gives a left margin of 20px */

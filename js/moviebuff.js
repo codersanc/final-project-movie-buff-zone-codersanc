@@ -245,6 +245,14 @@ $(document).ready(function(){
     }
   }
 
+  /* Binding the click of the scroll down button to take the user to the details section of the cards */
+  $("#scroll-to-comparison").click(function(){
+    this.blur(); // Removing focus from the clicked button
+    $('html, body').animate({
+      scrollTop: $(".mainCards").offset().top
+    }, 1000); // Animating the scroll to the details section of the cards
+  });
+
   /* Binding compare / remove buttons to allow add to compare / remove from compare */
   $(".compare").click(function(){
     var comparatorBar = $("#comparator-bar");
