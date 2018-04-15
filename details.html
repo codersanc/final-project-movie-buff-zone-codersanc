@@ -4,6 +4,7 @@
   <head>
     <title>MBZ: Details</title>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Added Favicon -->
     <link rel="shortcut icon" type="image/png" href="images/favicon.png"/>
     <!-- Loading SemanticUI CSS -->
@@ -15,12 +16,12 @@
     <!-- Loading custom stylesheet -->
     <link rel="stylesheet" href="css/styles.css" />
   </head>
-  <body>
+  <body id="details-page" class="dark-background">
     <div id="fakeLoader"></div>
     <div class="masthead-image"></div>
     <!-- Main Content -->
     <div id="main" class="ui vertical masthead aligned segment">
-      <div class="ui equal width stackable grid container marginTop30">
+      <div id="masthead-content" class="ui equal width stackable grid container marginTop30">
         <!-- Logo Row -->
         <div class="row logo">
           <div id="logo" class="sixteen wide column">
@@ -58,7 +59,7 @@
             </form>
           </div>
         </div>
-        <div class="row marginTop30">
+        <div id="details-content" class="row marginTop30">
           <div class = "five wide left floated column">
             <img id="poster" src="images/mockup-images/movie-1.jpg" class="ui image"/>
           </div>
@@ -73,26 +74,32 @@
             </div>
             <div>
               <h3 class="ui inverted header">Overview</h3>
-              <div class="ui fluid text container whiteText">
+              <div class="ui fluid text container whiteText mobileAdjustment">
                 Los Angeles SWAT cop Jack Traven is up against bomb expert Howard Payne, who's after major ransom money. First it's a rigged elevator in a very tall building. Then it's a rigged bus--if it slows, it will blow, bad enough any day, but a nightmare in LA traffic. And that's still not the end.
               </div>
             </div>
             <div class="ui fitted divider"></div>
             <div>
               <h3 class="ui inverted header marginTop30">Featured Crew</h3>
-              <div class="ui fluid text container whiteText">
+              <div class="ui fluid text container whiteText mobileAdjustment">
                 <p>Screenplay: Graham Yost</p>
                 <p>Director: Jan de Bont</p>
               </div>
             </div>
+            <div>
+              <button id="scroll-to-details" class="ui right labeled icon button marginTop30 darkGradientColor">
+                <i class="down arrow icon"></i>
+                View details
+              </button>
+            </div>
           </div>
         </div>
       </div>
-      <div class="ui fluid container marginTop30 details-container">
+      <div class="ui fluid container marginTop30 site-background">
         <div class="ui equal width stackable three column divided grid container">
           <div class="row">
             <div class="sixteen wide column">
-              <h2 class="ui header marginTop30">Details</h2>
+              <h2 class="ui inverted header marginTop30">Details</h2>
             </div>
           </div>
           <div class="row detailsRaisedRow">
@@ -135,7 +142,7 @@
           <div class="row marginTop30 detailsRaisedRow">
             <div class="column">
               <h3 class="ui header">Top Cast:</h3>
-              <div class="ui cards cast">
+              <div class="ui four column eqal width doubling cards cast">
                 <div class="card">
                   <div class="image">
                     <img src="images/mockup-images/cast-1.jpg">

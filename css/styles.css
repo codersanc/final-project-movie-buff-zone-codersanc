@@ -2,6 +2,33 @@ body{
   display: none;
 }
 
+/* Adding a background image to the container */
+.site-background {
+  background: url("../images/background.png");
+  background-size: auto;
+}
+
+/* Black background */
+.dark-background {
+  background-color: black;
+}
+
+/* To prevent scrollbar from appearing */
+.noscroll {
+  overflow: hidden;
+}
+
+/* Creates a translucent black container behind main div */
+#ghost-container {
+  position: fixed !important;
+  display: none;
+  background-color: black;
+  border-radius: 20px;
+  z-index: 0;
+  opacity: 0.4;
+  width: 100% !important;
+}
+
 /* Styling for the particle background on the homepage */
 .pg-canvas {
   position: fixed;
@@ -16,14 +43,20 @@ body{
 
 /* General class to give gradient background */
 .gradientColor {
-  background: linear-gradient(to bottom right, #4C83FF, #2AFADF) !important;
+  background: linear-gradient(to top right, #4C83FF, #2AFADF) !important;
+}
+
+/* General class to give a dark gradient background */
+.darkGradientColor {
+  background: linear-gradient(to bottom right, #f2f2f2, #c4c4c4) !important; 
 }
 
 /* Class for vertically centering main container */
 #main-container {
   position: relative;
   top: 50%;
-  transform: translateY(-60%);
+  transform: translateY(-65%);
+  padding: 30px;
 }
 
 /* Style to justify card descriptions */
@@ -33,6 +66,11 @@ body{
 
 /* To felx cards vertically to match height */
 .flexibleCards .column{
+  display: flex !important;
+}
+
+/* To felx cards vertically to match height */
+.flexibleCards .column .card{
   display: flex !important;
 }
 
@@ -59,6 +97,7 @@ body{
   left: 50%;
   transform: translateX(-50%);
   margin-bottom: 0;
+  background-color: #464a55;
 }
 
 #comparator-bar h4 {
@@ -87,6 +126,18 @@ body{
 .resultsLine{
   margin-bottom: 0 !important;
   line-height: 32px !important;
+  color: lightgray !important;
+}
+
+/* Styling the masthead breadcrumb chevron on the movie details page */
+.invertedColors .breadcrumb .chevron {
+  color: white !important;
+  opacity: 1 !important;
+}
+
+/* Styling the masthead breadcrumbs on the movie details page */
+.invertedColors .breadcrumb a {
+  color: #2AFADF;
 }
 
 /* Styling the animation on click of compare */
@@ -100,7 +151,7 @@ body{
 
 /* Styling the masthead hero image on the movie details page (Blurred Effect) */
 .masthead-image {
-  background: linear-gradient(to bottom,rgba(0, 0, 0, 0.80),rgba(0, 0, 0, 0.20)), url("../images/mockup-images/masthead-1.jpg") no-repeat !important;
+  background: linear-gradient(to bottom,rgba(0, 0, 0, 0.80),rgba(0, 0, 0, 0.50)), url("../images/mockup-images/masthead-1.jpg") no-repeat !important;
   background-size: cover !important;
   -webkit-filter: blur(10px);
   -moz-filter: blur(10px);
@@ -136,15 +187,11 @@ body{
   color: #2AFADF;
 }
 
-/* Styling the movie details container */
-.details-container {
-  background-color: white;
-}
-
 /* Setting the shadow of the details sections */
 .detailsRaisedRow {
   box-shadow: 0px 0px 10px rgb(0,0,0,.2);
-  border-radius: 10px;
+  border-radius: 5px;
+  background-color: white;
 }
 
 /* Generic style class to make elements inline-block */
@@ -169,7 +216,7 @@ body{
 
 /* Force width of cards in cast */
 .cast .card {
-  width: calc((100% - 58px) / 4) !important; 
+  /*width: calc((100% - 58px) / 4) !important; */
 }
 
 /* Styling the cast card headers */
@@ -210,4 +257,121 @@ body{
 /* Increasing the size of the movie headers within cards */
 .comparing .mainCards > .header:first-child{
   font-size: 25px !important;
+}
+
+/* Fixed position headers */
+.fixedPos {
+  position: fixed;
+  top: 0;
+  z-index: 999;
+  line-height: 30px;
+  background-color: white;
+  box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 15px;
+  border-radius: 5px;
+  height: auto !important;
+}
+/* -------------- -------------- -------------- --------- */
+/* -------------- Responsive design styles -------------- */
+/* -------------- -------------- -------------- --------- */
+@media screen and (max-width: 600px) { /*  MOBILE DEVICE  */
+  .logo img {
+    height: 40px !important;
+    display: inline-block !important;
+    margin: 0 !important;
+  }
+  .logo div{
+    width: auto !important;
+  }
+  .breadcrumb a {
+    margin-bottom: 10px !important;
+  }
+  /* -------------- Home page responsive -------------- */
+  #home-page-logo img{
+    height: 100px !important;
+  }
+  #home-page #main-container {
+    padding: 10px !important;
+  }
+  #home-page-logo-text img {
+    height: 60px !important;
+  }
+  #home-page h3{
+    font-size: 15px;
+  }
+  #home-page #search{
+    padding: 0px !important;
+  }
+  #search-form input, button{
+    font-size: 1rem !important;
+  }
+  /* -------------- Results Page responsive -------------- */
+  #results-page h3 {
+    font-size: 15px;
+  }
+  #results-page .flexibleCards .column {
+    padding: 5px;
+  }
+  #results-page .flexibleCards .button {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+  }
+  #results-page .flexibleCards .button .visible {
+    margin-right: 0px !important;
+    font-size: 12px;
+  }
+  #results-page .doubling {
+    margin-left: 5px !important;
+    margin-right: 5px !important;
+    margin-top: 5px !important;
+    margin-bottom: 50px;
+  }
+  #results-page #comparator-bar {
+    width: 100% !important;
+  }
+  /* -------------- Compare page responsive -------------- */
+  #compare-page #scroll-to-comparison {
+    margin-left: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  #compare-page #comparison{
+    margin-left: 5px !important;
+    margin-right: 5px !important;
+  }
+  #compare-page #comparison .first{
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+  }
+  #compare-page #comparison .second{
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+  }
+  /* -------------- Details page responsive -------------- */
+  #details-page #main {
+    padding-top: 0px !important;
+  }
+  #details-page #scroll-to-details {
+    display: none;
+  }
+  #details-page .detailsRaisedRow {
+    padding: 10px;
+  }
+  #details-page .masthead-image {
+    transform: scale(1) !important;
+    width: 100% !important;
+  }
+  #details-page #poster {
+    margin-right: 0px;
+    width: 100%;
+  }
+  #details-page #details-content {
+    margin-top: 0px !important;
+  }
+  #details-page .mobileAdjustment {
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+  }
 }

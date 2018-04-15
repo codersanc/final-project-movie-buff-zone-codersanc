@@ -4,6 +4,7 @@
   <head>
     <title>MBZ: Compare</title>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Added Favicon -->
     <link rel="shortcut icon" type="image/png" href="images/favicon.png"/>
     <!-- Loading SemanticUI CSS -->
@@ -15,7 +16,7 @@
     <!-- Loading custom stylesheet -->
     <link rel="stylesheet" href="css/styles.css" />
   </head>
-  <body>
+  <body id="compare-page" class="site-background">
     <div id="fakeLoader"></div>
     <!-- Main Content -->
     <div id="main" class="ui equal width stackable grid container marginTop30">
@@ -32,13 +33,13 @@
       </div>
       <!-- Breadcrumbs -->
       <div class="row">
-        <div id="search" class="sixteen wide column marginTop30">
+        <div id="search" class="sixteen wide column marginTop30 invertedColors">
           <div class="ui huge breadcrumb">
             <a class="section" href="index.html">Home</a>
             <i class="ui right white chevron icon divider"></i>
             <a class="section" href="results.html">Search Results</a>
             <i class="right chevron icon divider"></i>
-            <div class="active section">Compare</div>
+            <div class="active section whiteText">Compare</div>
           </div>
         </div>
       </div>
@@ -57,15 +58,15 @@
         </div>
       </div>
       <div class="row">
-        <h3 class="ui grey left floated header resultsLine marginLeft15">Comparing 'Speed' and 'Speed Racer':</h3>
-        <button id="scroll-to-comparison" class="ui right floating right labeled icon button">
+        <h3 class="ui left floated header resultsLine marginLeft15">Comparing 'Speed' and 'Speed Racer':</h3>
+        <button id="scroll-to-comparison" class="ui right floating right labeled icon button darkGradientColor">
           <i class="down arrow icon"></i>
           Scroll to details
         </button>
       </div>
     </div>
     <!-- Comparison  -->
-    <div class="ui two column equal width grid container">
+    <div id="comparison" class="ui two column equal width grid container">
       <!-- Comparison Cards -->
       <div class="row flexibleCards">
        <div class="column first">
@@ -74,11 +75,11 @@
               <img src="images/mockup-images/movie-1.jpg">
             </div>
             <div class="content mainCards">
-              <div class="header">Speed</div>
+              <div class="header sticky">Speed</div>
               <div class="meta">
                 <p>June 9, 1994</p>
                 <h5>Top Cast:</h5>
-                <div class="ui cards cast">
+                <div class="ui stackable cards cast">
                   <div class="card">
                     <div class="image">
                       <img src="images/mockup-images/cast-1.jpg">
@@ -125,9 +126,11 @@
                   </div>
                 </div>
                 <h5>Genres:</h5>
-                <p class="ui inverted segment inlineBlock">Action</p>
-                <p class="ui inverted segment inlineBlock">Crime</p>
-                <p class="ui inverted segment inlineBlock">Adventure</p>
+                <div class="genres">
+                  <p class="ui inverted segment inlineBlock">Action</p>
+                  <p class="ui inverted segment inlineBlock">Crime</p>
+                  <p class="ui inverted segment inlineBlock">Adventure</p>
+                </div>
                 <h5>Description:</h5>
               </div>
               <div class="description">
@@ -161,11 +164,11 @@
               <img src="images/mockup-images/movie-2.jpg">
             </div>
             <div class="content mainCards">
-              <div class="header">Speed Racer</div>
+              <div class="header sticky">Speed Racer</div>
               <div class="meta">
                 <p>May 9, 2008</p>
                 <h5>Top Cast:</h5>
-                <div class="ui cards cast">
+                <div class="ui stackable cards cast">
                   <div class="card">
                     <div class="image">
                       <img src="images/mockup-images/cast-6.jpg">
@@ -212,9 +215,11 @@
                   </div>
                 </div>
                 <h5>Genres:</h5>
-                <p class="ui inverted segment inlineBlock">Action</p>
-                <p class="ui inverted segment inlineBlock">Family</p>
-                <p class="ui inverted segment inlineBlock">Science Fiction</p>
+                <div class="genres">
+                  <p class="ui inverted segment inlineBlock">Action</p>
+                  <p class="ui inverted segment inlineBlock">Family</p>
+                  <p class="ui inverted segment inlineBlock">Science Fiction</p>
+                </div>
                 <h5>Description:</h5>
               </div>
               <div class="description">

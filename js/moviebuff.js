@@ -138,7 +138,7 @@ function removeFromCompare (addToCompareButton, comparatorBar, token) {
   /* If 2 items have already been added for compare */
   if(comparatorBar.find("span").length == 0) {
     comparatorBar.fadeOut("1000");
-    $("div").last().prev().css("margin-bottom", "0px");
+    $("div").last().prev().css("margin-bottom", "60px");
   }
 }
 
@@ -180,6 +180,43 @@ function comparisonPage(){
   window.location.href="compare.html";  
 }
 
+/* Adjusts the height of the ghost container backdrop */
+function adjustTansparentBackdrop(){
+	$("#ghost-container").height($("#main-container").outerHeight());
+	$("#ghost-container").offset({top:$("#main-container").offset().top, left: 0});
+}
+
+/* Adjust heights of elements to equate them */
+function adjustHeights(firstElement, secondElement){
+	var firstElementHeight = firstElement.outerHeight(); // Getting the height of the first element
+    var secondElementHeight = secondElement.outerHeight(); // Getting the height of the second elements
+    if (firstElementHeight>secondElementHeight){ // Comparing heights and setting to the larger value
+      secondElement.css("cssText", "height:" + firstElementHeight + "px !important"); 
+    } else {
+      firstElement.css("cssText", "height:" + secondElementHeight + "px !important"); 
+    }
+}
+
+/* This function handles the headers of the compare cards (Sticks on scrolling below them) */
+function stickyHeaders() {
+  var win = $(window); // Window object
+  var sticky = $(".sticky"); // Elements that need to be made sticky
+  var pos = sticky.offset().top; // Current top offset
+  win.on('scroll', function(){
+  	if (win.scrollTop() >= pos) { // if scroll position is more than pos 
+  		sticky.addClass("fixedPos"); // Adding sticky css class  
+  		adjustHeights($(".first .mainCards > .header"), $(".second .mainCards > .header")); // Adjust heights
+  		$(".sticky").css("margin-left", "-14px"); // fixing position
+  		$(".sticky").css("width", $(".mainCards").outerWidth()); // adjusting width
+  	} else {
+  		sticky.removeClass("fixedPos"); // Removing sticky css class
+  		$(".sticky").css("margin-left", "0px"); // fixing position
+  		$(".sticky").css("width", "auto"); // adjusting width
+  		adjustHeights($(".first .mainCards > .header"), $(".second .mainCards > .header")); // Adjust heights
+  	}
+  });
+}
+
 /* Actions to perform once document is ready */
 $(document).ready(function(){
 
@@ -188,18 +225,27 @@ $(document).ready(function(){
   
   /* Settibg nasthead image dimensions */
   $(".masthead-image").width($(".masthead").outerWidth());
-  $(".masthead-image").height($(".masthead").outerHeight());
+  if($(window).width()<=600) {
+  	//$(".masthead-image").height($("#masthead-content").outerHeight());
+  } else {
+  	$(".masthead-image").height($(".masthead").outerHeight());
+  }
 
   /* Defining logo click action */
   $(".logo").click(function(){
     window.location.href = "index.html"; // Sending back home
   });
 
+  /* if ghost container is found, adjust its position */
+  if($("#ghost-container").length!=0){
+  	adjustTansparentBackdrop();
+  }
+
   /* Initializing the particle background on the home page */
   try {
     $('.particle').particleground({
-        dotColor: '#d6f1ff',
-        lineColor: '#d6f1ff',
+        dotColor: '#2d3354',
+        lineColor: '#2d3354',
         density: 15000
     });
   } catch (e) {
@@ -236,13 +282,16 @@ $(document).ready(function(){
 
   /* Adjusting cast card height to match either column */
   if($('.first').length!=0) {
-    var firstColumnCardHeight = $(".first .cast .card").height(); // Getting the height of the cards in the first column
-    var secondColumnCardHeight = $(".second .cast .card").height(); // Getting the height of the cards in the second column
-    if (firstColumnCardHeight>secondColumnCardHeight){ // Comparing heights and setting to the larger value
-      $(".second .cast .card").height($(".first .cast .card").height()); 
-    } else {
-      $(".first .cast .card").height($(".second .cast .card").height());
-    }
+  	var maxheight=0;
+  	var currentHeight=0;
+  	$(".mainCards .card").each(function(){ // Looping over all cast cards
+  		currentHeight=$(this).outerHeight();
+  		if(currentHeight > maxheight) // Finding the max height
+  		maxheight = currentHeight;
+  	});
+  	$(".mainCards .card").css("cssText", "height:" + maxheight + "px !important"); // Setting all cards to max height 
+    adjustHeights($(".first .mainCards > .header"), $(".second .mainCards > .header")); // Adjusting the header heights
+    adjustHeights($(".first .genres"), $(".second .genres")); // Adjusting the genres heights
   }
 
   /* Binding the click of the scroll down button to take the user to the details section of the cards */
@@ -250,11 +299,24 @@ $(document).ready(function(){
     this.blur(); // Removing focus from the clicked button
     $('html, body').animate({
       scrollTop: $(".mainCards").offset().top
-    }, 1000); // Animating the scroll to the details section of the cards
+    }, 500); // Animating the scroll to the details section of the cards
   });
 
+  /* Binding the click of the scroll down button to take the user to the details of the movie */
+  $("#scroll-to-details").click(function(){
+    this.blur(); // Removing focus from the clicked button
+    $('html, body').animate({
+      scrollTop: $(".detailsRaisedRow").offset().top
+    }, 500); // Animating the scroll to the details section of the cards
+  });
+
+  /* Compare page: Making sticky headers of cards */
+  if($("#compare-page").length!=0)
+  stickyHeaders();
+
   /* Binding compare / remove buttons to allow add to compare / remove from compare */
-  $(".compare").click(function(){
+  $(".compare").click(function(e){
+  	$(this).trigger("blur");
     var comparatorBar = $("#comparator-bar");
     var movieTitle = $(this).attr("data");
     /* Initially disabling compare button on comparitor bar */
@@ -265,7 +327,7 @@ $(document).ready(function(){
         /* Displaying the compare bar */
         comparatorBar.fadeIn("1000");
         /* Adding margin to the bottom of the page and scrolling in case the compare bar overlaps */
-        $("div").last().prev().css("margin-bottom", "50px");
+        $("div").last().prev().css("margin-bottom", "70px");
         $('html, body').animate({scrollTop: '+=50px'}, 500);
         /* Adding title to compare */
         addToCompare($(this), comparatorBar);
@@ -278,4 +340,18 @@ $(document).ready(function(){
       removeFromCompare($(this), comparatorBar, $("span[data='" + movieTitle + "']"));
     }
   });
+});
+
+/* Showing the transulcent ghost container once the window is rendered  */
+$(window).on('load', function(){
+	$("#ghost-container").show();
+	if($(this).width()<=600) { // Checking for mobile device
+		$(".breadcrumb").removeClass("huge"); // Making breadcrumbs small if mobile device
+	}
+});
+
+/* Resizing the ghost container if the window is resized */
+$(window).resize(function() {
+  if($("#ghost-container").length!=0)
+  adjustTansparentBackdrop(); // adjusting backdrop ghost container on reseize
 });
