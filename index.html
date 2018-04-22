@@ -49,8 +49,8 @@
         <div id="search" class="sixteen wide column">
           <form id="search-form" action="results.html" method="post">
             <div class="ui huge fluid action input marginTop30">
-              <input type="text" placeholder="Search for Movies, TV Series...">
-              <button class="ui blue right labeled icon huge button gradientColor">
+              <input id="main-search-field" type="text" placeholder="Search for Movies, TV Series...">
+              <button id="main-search-button" class="ui blue right labeled icon huge button gradientColor">
                 <i class="search icon"></i>
                 Search
               </button>
@@ -58,6 +58,10 @@
           </form>
         </div>
       </div>
+    </div>
+    <div class="error-message" hidden="true">
+      <i class="window close icon"></i>
+      Please enter a search term!
     </div>
     <!-- Loading up JQuery -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>

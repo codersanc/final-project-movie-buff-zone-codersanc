@@ -5,6 +5,7 @@ body{
 /* Adding a background image to the container */
 .site-background {
   background: url("../images/background.png");
+  background-color: black;
   background-size: auto;
 }
 
@@ -18,12 +19,26 @@ body{
   overflow: hidden;
 }
 
+/* Styling the comparator bar and its children */
+.error-message {
+  position: fixed;
+  z-index: 9999;
+  bottom: 0;
+  width: 100%;
+  margin-bottom: 0;
+  background-color: #9b2b2b;
+  text-align: center;
+  font-size: 1.1em;
+  color: white;
+  line-height: 40px;
+}
+
+
 /* Creates a translucent black container behind main div */
 #ghost-container {
   position: fixed !important;
   display: none;
   background-color: black;
-  border-radius: 20px;
   z-index: 0;
   opacity: 0.4;
   width: 100% !important;
@@ -59,6 +74,10 @@ body{
   padding: 30px;
 }
 
+#error-message{
+  position: fixed;
+}
+
 /* Style to justify card descriptions */
 .card .content .description {
   text-align: justify;
@@ -67,11 +86,13 @@ body{
 /* To felx cards vertically to match height */
 .flexibleCards .column{
   display: flex !important;
+  flex-grow: 0 !important;
 }
 
 /* To felx cards vertically to match height */
 .flexibleCards .column .card{
   display: flex !important;
+  margin-bottom: 30px !important;
 }
 
 /* Thumb mouse over logo */

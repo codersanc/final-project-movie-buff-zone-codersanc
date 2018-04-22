@@ -1,4 +1,4 @@
-/**
+/*
  * @file moviebuff.js
  * 
  * Provides functionality to the MBZ Website
@@ -57,7 +57,11 @@ function addToCompare(addToCompareButton, comparatorBar) {
     /* Iterating over list of items added to compare */
     $.each(compareItems, function(index, value){
       /* To keep selected movie buttons enabled */
-      $("div[data='" + value + "']").removeClass("disabled");
+      $("div.compare").each(function(){
+      	if($(this).attr("data")==value) { // Find all buttons with data stored as movie id and title
+      		$(this).removeClass("disabled"); // Remove disabled class
+      	}
+      });
     });
   }
 }
@@ -154,11 +158,11 @@ function createCompareToken (addToCompareButton, comparatorBar) {
   var token = $("<span class='ui label transition visible'></span>");
 
   /* Text Node to be inserted into the token span (Obtained from data attr of the add to compare button) */
-  var tokenContent = addToCompareButton.attr("data");
-  compareItems.push(tokenContent);
+  var tokenContent = addToCompareButton.attr("data").split("_")[1];
+  compareItems.push(addToCompareButton.attr("data"));
 
   /* Adding token content to the data attr */
-  token.attr("data", tokenContent);
+  token.attr("data", addToCompareButton.attr("data").split("_")[0]);
 
   /* Created token delete icon */
   var tokenIcon = $("<i class='delete icon'></i>");
@@ -171,13 +175,46 @@ function createCompareToken (addToCompareButton, comparatorBar) {
 }
 
 /* This function takes the user to the details page of the movie */
-function showDetails() {
-  window.location.href="details.html";
+function showDetails(button) {
+	axios.get('https://api.themoviedb.org/3/movie/' + $(button).next().attr('data') + '?api_key=03f36b1d285bb38db672a6c9beac463a&language=en-US')
+	  .then(function (response) {
+	  	if (response!=null) {
+		  	/* Setting Response into local storage */
+		    localStorage.setItem('details', JSON.stringify(response));
+		    window.location.href="details.html";  // Redirecting to Details page
+        }
+	  })
+	  .catch(function (error) {
+	    // console.log(error); Error
+	});
 }
 
 /* his function takes the user to the comparison page */
 function comparisonPage(){
-  window.location.href="compare.html";  
+	/* First Get call to obtain first title details */
+	axios.get('https://api.themoviedb.org/3/movie/' + compareItems[0] + '?api_key=03f36b1d285bb38db672a6c9beac463a&language=en-US')
+	  .then(function (response) {
+	  	if (response!=null) {
+		  	/* Setting Response into local storage */
+		    localStorage.setItem('title_1', JSON.stringify(response));
+
+		    /* Second Get call to obtain second title details */
+		    axios.get('https://api.themoviedb.org/3/movie/' + compareItems[1] + '?api_key=03f36b1d285bb38db672a6c9beac463a&language=en-US')
+			  .then(function (response) {
+			  	if (response!=null) {
+				  	/* Setting Response into local storage */
+				    localStorage.setItem('title_2', JSON.stringify(response));
+				    window.location.href="compare.html";  // Redirecting to Compare page
+		        }
+			  })
+			  .catch(function (error) {
+			    // console.log(error); Error
+			});
+        }
+	  })
+	  .catch(function (error) {
+	    // console.log(error); Error
+	});
 }
 
 /* Adjusts the height of the ghost container backdrop */
@@ -217,6 +254,110 @@ function stickyHeaders() {
   });
 }
 
+/* Function that checks if form element's value is blank */
+function isEmpty(element) {
+  // Trimming the value of the field to get rid of unnecessary blank spaces 
+  element.value = element.value.trim();
+  // Checking for blank field
+  if (element.value === "") { 
+    return true; // is blank
+  } else {
+    return false; // is not blank
+  }
+}
+
+/* This function displays the error toast message */
+function displayErrorToast(inputField){
+	$(inputField).parent().addClass("error"); // Adding error class to field
+	$(inputField).on('keypress', function(){
+		$(inputField).parent().removeClass("error"); // removing error class on key press in the input field
+	});
+	if($(".error-message").is(":hidden")) { // Only if error is not already being displayed
+		$(".error-message").slideDown().delay(2000).slideUp(); // SHow error toast
+		$(".error").effect('shake', {distance:5}); // Shake blank error field
+	}
+}
+
+/* This function generates the results cards markup using the results JSON object */
+function createResultsMarkup(resultsObj){
+	/* Looping on the results object */
+	$(resultsObj).each(function(){
+		if (isFieldNullOrEmpty(this.title)){return true;} // Break the loop if the title is blank
+		/* Creating variables for the markup */
+		var column = $("<div>", {class: "column"}); // Main column container
+		  var raisedCard = $("<div>", {class: "ui fluid raised card"}); // raised card container
+		    var imageContainer = $("<div>", {class: "image"}); // Image container
+	    	  if(!isFieldNullOrEmpty(this.poster_path)) { // If Path is valid
+		        var image = $("<img>", {src: "https://image.tmdb.org/t/p/w185_and_h278_bestv2" + this.poster_path}); // Setting poster image path
+		      } else { // If path comes as Null
+		      	var image = $("<img>", {src: "images/fallback.png"}); // Using fallback image
+		      }
+		    var content = $("<div>", {class:"content"}); //content container
+		      var header = $("<div>", {class:"header", html: this.title}); //Setting title
+		      if (!isFieldNullOrEmpty(this.release_date)) { // CHecking if release date is valid
+		      	var date = $("<div>", {class:"meta", html: this.release_date}); // Setting release date
+		      } else {
+		      	var date = $("<div>", {class:"meta", html: "Not Available"}); // Setting not available
+		      }
+		      if (!isFieldNullOrEmpty(this.overview)) { // Checking valid overview
+		      	var description = $("<div>", {class:"description", html: this.overview}); // Setting overview
+		      } else {
+		      	var description = $("<div>", {class:"description", html: "Not Available"}); // Setting not available
+		      }
+		    var extraContent = $("<div>", {class:"extra content"}); // EXtra content container 
+	        if(!isFieldNullOrEmpty(this.vote_average) && this.vote_average!=0){ // If rating is valid
+	        	/*Initializing progress bar */
+		      var progressContainer = $("<div>", {class:"ui small indicating progress active"}).attr("data-percent", (this.vote_average*10)).attr("data-tooltip","User Rating").attr("data-inverted","");
+		        var progressBar = $("<div>", {class:"bar", style:"transition-duration:300ms;width:"+ (this.vote_average*10) + "%;"});
+		          var progress = $("<div>", {class:"progress"});
+	          	  var progressLabel = $("<div>", {class: "label", html: ""+(this.vote_average*10)+"%"});
+	        } else { // If not rated
+	          /* Setting progress bar to 0% Not rated */
+	          var progressContainer = $("<div>", {class:"ui small indicating progress active"}).attr("data-percent", 0).attr("data-tooltip","User Rating").attr("data-inverted","");
+		        var progressBar = $("<div>", {class:"bar", style:"transition-duration:300ms;width:"+ 0 + "%;"});
+		          var progress = $("<div>", {class:"progress"});
+	          	  var progressLabel = $("<div>", {class: "label", html: "Not Rated"});		
+	        }
+		    var extraContent2 = $("<div>", {class: "extra content"}); // EXtra content container
+		      var buttonContainer = $("<div>", {class: "ui two buttons"}); 
+		        var animatedButton1 = $("<div>", {class: "ui animated primary button gradientColor", tabindex:"0"}); // Details Button
+		          var visibleContent1 = $("<div>", {class: "visible content", html: "Details"}); 
+		          var hiddenContent1 = $("<div>", {class: "hidden content"});
+		            var icon1 = $("<i>", {class: "right arrow icon"});
+		        var animatedButton2 = $("<div>", {class: "ui animated button compare darkGradientColor", tabindex:"0"}).attr("data", this.id+"_"+this.title);
+		          var visibleContent2 = $("<div>", {class: "visible content", html:"Compare"});  // Compare Button
+		          var hiddenContent2 = $("<div>", {class: "hidden content"});
+		            var icon2 = $("<i>", {class: "plus icon"});
+
+		/* Combining the markup */
+		hiddenContent2.append(icon2);
+		animatedButton2.append(visibleContent2).append(hiddenContent2);
+		hiddenContent1.append(icon1);
+		animatedButton1.append(visibleContent1).append(hiddenContent1);
+		buttonContainer.append(animatedButton1).append(animatedButton2);
+		extraContent2.append(buttonContainer);
+		progressBar.append(progress);
+		progressContainer.append(progressBar).append(progressLabel);
+		extraContent.append(progressContainer);
+		content.append(header).append(date).append(description);
+		imageContainer.append(image);
+		raisedCard.append(imageContainer).append(content).append(extraContent).append(extraContent2);
+		column.append(raisedCard);
+
+		/* Appending the markup into the results container */
+		$("#results-holder").append(column);
+	});
+}
+
+/* Function that checks if a field is null or empty */
+function isFieldNullOrEmpty(field) {
+	if (typeof field !=undefined && field!=null && field!="") {
+		return false; // Not null or empty
+	} else {
+		return true; // Null or empty or undefined
+	}
+}
+
 /* Actions to perform once document is ready */
 $(document).ready(function(){
 
@@ -231,9 +372,54 @@ $(document).ready(function(){
   	$(".masthead-image").height($(".masthead").outerHeight());
   }
 
+  /* If results page is loaded */
+  if($("#results-page").length!=0){
+  	var results = JSON.parse(localStorage.getItem("results"));
+  	if (results.data!=null && results.data.results!=null) { // Checking if results are present 
+  		createResultsMarkup(results.data.results); // Calling function to parse the JSON and create markup
+  		$("#main-search-field").val(localStorage.getItem("search-term"));
+  		$("#search-term").html(localStorage.getItem("search-term"));
+  		$("#results-count").html(localStorage.getItem('count'));
+		// localStorage.getItem('pages');
+  	} else {
+  		// Show Zero Results 
+  	}
+  }
+
   /* Defining logo click action */
   $(".logo").click(function(){
     window.location.href = "index.html"; // Sending back home
+  });
+
+  /* Binding the click of the Search button */
+  $("#search-form").on('submit', function(event){
+  	event.preventDefault();
+  	var inputField = document.getElementById("main-search-field");
+  	// Checking validity
+  	if (isEmpty(inputField)) {
+  		// Show error
+  		displayErrorToast(inputField);
+  	} else {
+  		/* Using Axios API to send request to TMDB */
+  		axios.get('https://api.themoviedb.org/3/search/movie?api_key=03f36b1d285bb38db672a6c9beac463a&query=' + encodeURIComponent(inputField.value))
+		  .then(function (response) {
+		  	if (response!=null) {
+			  	/* Setting Response into local storage */
+			    localStorage.setItem('results', JSON.stringify(response));
+			    localStorage.setItem('count', response.data.total_results);
+			    localStorage.setItem('pages', response.data.total_pages);
+			    localStorage.setItem('search-term', inputField.value);
+
+	            window.location.href="results.html";
+            }
+		  })
+		  .catch(function (error) {
+		    // console.log(error); Error
+		});
+
+  		//this.submit();
+  		return false;
+  	}
   });
 
   /* if ghost container is found, adjust its position */
@@ -268,7 +454,7 @@ $(document).ready(function(){
 
   /* Binding the click of results cards - takes to details page */
   $(".card .primary").click(function(){
-    showDetails();
+    showDetails(this);
   });
 
   /* Binding the click of compare titles button once movies have been selected */
@@ -337,7 +523,7 @@ $(document).ready(function(){
       }
     } else {
       /* Removing title from compare */
-      removeFromCompare($(this), comparatorBar, $("span[data='" + movieTitle + "']"));
+      removeFromCompare($(this), comparatorBar, $("span[data='" + movieTitle.split("_")[0] + "']"));
     }
   });
 });

@@ -46,7 +46,7 @@
         <div id="search" class="sixteen wide column">
           <form id="search-form" action="results.html" method="post">
             <div class="ui fluid action large input">
-              <input type="text" placeholder="Search for Movies, TV Series..." value="Speed">
+              <input id="main-search-field" type="text" placeholder="Search for Movies, TV Series..." value="">
               <button class="ui blue right labeled icon large button gradientColor">
                 <i class="search icon"></i>
                 Search
@@ -58,7 +58,7 @@
       <!-- Filters -->
       <div class="row filters">
         <div class="sixteen wide column">
-          <h3 class="ui left floated header resultsLine">4 Results for 'Speed'</h3>
+          <h3 class="ui left floated header resultsLine"><span id="results-count"></span> Results for '<span id="search-term"></span>'</h3>
           <button id="filters-toggle" class="ui right labeled right floating icon button">
             <i class="caret down icon"></i>
             Filters
@@ -90,171 +90,8 @@
     <!-- Results  -->
     <div class="ui four column equal width doubling grid container">
       <!-- First Row of Results -->
-      <div class="row flexibleCards">
-        <div class="column">
-          <div class="ui fluid raised card">
-            <div class="image">
-              <img src="images/mockup-images/movie-1.jpg">
-            </div>
-            <div class="content">
-              <div class="header">Speed</div>
-              <div class="meta">
-                June 9, 1994
-              </div>
-              <div class="description">
-                Los Angeles SWAT cop Jack Traven is up against bomb expert Howard Payne, who's after major ransom money. First it's a rigged elevator in a very tall building. Then it's a rigged bus--if it slows, it will blow, bad…
-              </div>
-            </div>
-            <div class="extra content">
-              <!-- Rating -->
-              <div class="ui small indicating progress active" data-percent="90" data-tooltip="User Rating" data-inverted="">
-                <div class="bar" style="transition-duration: 300ms; width: 90%;">
-                  <div class="progress"></div>
-                </div>
-                <div class="label">90%</div>
-              </div>
-            </div>
-            <div class="extra content">
-              <div class="ui two buttons">
-                <div class="ui animated primary button gradientColor" tabindex="0">
-                  <div class="visible content">Details</div>
-                  <div class="hidden content">
-                    <i class="right arrow icon"></i>
-                  </div>
-                </div>
-                <div class="ui animated button compare darkGradientColor" tabindex="0" data="Speed">
-                  <div class="visible content">Compare</div>
-                  <div class="hidden content">
-                    <i class="plus icon"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="column">
-          <div class="ui fluid raised card">
-            <div class="image">
-              <img src="images/mockup-images/movie-2.jpg">
-            </div>
-            <div class="content">
-              <div class="header">Speed Racer</div>
-              <div class="meta">
-                May 9, 2008
-              </div>
-              <div class="description">
-                Speed Racer is the tale of a young and brilliant racing driver. When corruption in the racing leagues costs his brother his life, he must team up with the police and the mysterious Racer X to bring an end to the…
-              </div>
-            </div>
-            <div class="extra content">
-              <!-- Rating -->
-              <div class="ui small indicating progress active" data-percent="80" data-tooltip="User Rating" data-inverted="">
-                <div class="bar" style="transition-duration: 300ms; width: 80%;">
-                  <div class="progress"></div>
-                </div>
-                <div class="label">80%</div>
-              </div>
-            </div>
-            <div class="extra content">
-              <div class="ui two buttons">
-                <div class="ui animated primary button gradientColor" tabindex="0">
-                  <div class="visible content">Details</div>
-                  <div class="hidden content">
-                    <i class="right arrow icon"></i>
-                  </div>
-                </div>
-                <div class="ui animated button compare darkGradientColor" tabindex="0" data="Speed Racer">
-                  <div class="visible content">Compare</div>
-                  <div class="hidden content">
-                    <i class="plus icon"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="column">
-          <div class="ui fluid raised card">
-            <div class="image">
-              <img src="images/mockup-images/movie-3.jpg">
-            </div>
-            <div class="content">
-              <div class="header">Need for Speed</div>
-              <div class="meta">
-                March 13, 2014
-              </div>
-              <div class="description">
-                The film revolves around a local street-racer who partners with a rich and arrogant business associate, only to find himself framed by his colleague and sent to prison. After he gets out, he joins a New York-to…
-              </div>
-            </div>
-            <div class="extra content">
-              <!-- Rating -->
-              <div class="ui small indicating progress active" data-percent="50" data-tooltip="User Rating" data-inverted="">
-                <div class="bar" style="transition-duration: 300ms; width: 50%;">
-                  <div class="progress"></div>
-                </div>
-                <div class="label">50%</div>
-              </div>
-            </div>
-            <div class="extra content">
-              <div class="ui two buttons">
-                <div class="ui animated primary button gradientColor" tabindex="0">
-                  <div class="visible content">Details</div>
-                  <div class="hidden content">
-                    <i class="right arrow icon"></i>
-                  </div>
-                </div>
-                <div class="ui animated button compare darkGradientColor" tabindex="0" data="Need for Speed">
-                  <div class="visible content">Compare</div>
-                  <div class="hidden content">
-                    <i class="plus icon"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="column">
-          <div class="ui fluid raised card">
-            <div class="ui image">
-              <img src="images/mockup-images/movie-4.jpg">
-            </div>
-            <div class="content">
-              <div class="header">Speed 2: Cruise Control</div>
-              <div class="meta">
-                June 13, 1997
-              </div>
-              <div class="description">
-                Sandra Bullock and Jason Patric star as a young couple whose dream cruise turns to terror when a lunatic computer genius (Willem Dafoe) sets a new course for destruction...
-              </div>
-            </div>
-            <div class="extra content">
-              <!-- Rating -->
-              <div class="ui small indicating progress active" data-percent="60" data-tooltip="User Rating" data-inverted="">
-                <div class="bar" style="transition-duration: 300ms; width: 60%;">
-                  <div class="progress"></div>
-                </div>
-                <div class="label">60%</div>
-              </div>
-            </div>
-            <div class="extra content">
-              <div class="ui two buttons">
-                <div class="ui animated primary button gradientColor" tabindex="0">
-                  <div class="visible content">Details</div>
-                  <div class="hidden content">
-                    <i class="right arrow icon"></i>
-                  </div>
-                </div>
-                <div class="ui animated button compare darkGradientColor" tabindex="0" data="Speed 2: Crusie Control">
-                  <div class="visible content">Compare</div>
-                  <div class="hidden content">
-                    <i class="plus icon"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div id="results-holder" class="row flexibleCards">
+        <!-- Dynamically generated HTML for the results -->
       </div>
     </div>
     <!-- Comparator bar where selected movies will be added -->
