@@ -280,6 +280,10 @@ body{
   font-size: 25px !important;
 }
 
+.genres p {
+  margin-right: 2px !important;
+}
+
 /* Fixed position headers */
 .fixedPos {
   position: fixed;

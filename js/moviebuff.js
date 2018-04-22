@@ -195,16 +195,38 @@ function comparisonPage(){
 	axios.get('https://api.themoviedb.org/3/movie/' + compareItems[0] + '?api_key=03f36b1d285bb38db672a6c9beac463a&language=en-US')
 	  .then(function (response) {
 	  	if (response!=null) {
-		  	/* Setting Response into local storage */
+		  	/* Setting 1st title response in local storage */
 		    localStorage.setItem('title_1', JSON.stringify(response));
-
-		    /* Second Get call to obtain second title details */
-		    axios.get('https://api.themoviedb.org/3/movie/' + compareItems[1] + '?api_key=03f36b1d285bb38db672a6c9beac463a&language=en-US')
-			  .then(function (response) {
+		    /* Second Get call to obtain first title cast */
+		    axios.get('https://api.themoviedb.org/3/movie/' + compareItems[0] + '/credits?api_key=03f36b1d285bb38db672a6c9beac463a&language=en-US')
+		    .then(function (response) {
 			  	if (response!=null) {
-				  	/* Setting Response into local storage */
-				    localStorage.setItem('title_2', JSON.stringify(response));
-				    window.location.href="compare.html";  // Redirecting to Compare page
+				  	/* Setting 1st title cast response in local storage */
+				    localStorage.setItem('cast_1', JSON.stringify(response));
+				    
+				    /* Third Get call to obtain second title details */
+				    axios.get('https://api.themoviedb.org/3/movie/' + compareItems[1] + '?api_key=03f36b1d285bb38db672a6c9beac463a&language=en-US')
+					  .then(function (response) {
+					  	if (response!=null) {
+						  	/* Setting Response into local storage */
+						    localStorage.setItem('title_2', JSON.stringify(response));
+						    /* Fourth Get call to obtain second title cast */
+						    axios.get('https://api.themoviedb.org/3/movie/' + compareItems[1] + '/credits?api_key=03f36b1d285bb38db672a6c9beac463a&language=en-US')
+							  .then(function (response) {
+							  	if (response!=null) {
+								  	/* Setting Response into local storage */
+								    localStorage.setItem('cast_2', JSON.stringify(response));
+								    window.location.href="compare.html";  // Redirecting to Compare page
+						        }
+							  })
+							  .catch(function (error) {
+							    // console.log(error); Error
+							});
+				        }
+					  })
+					  .catch(function (error) {
+					    // console.log(error); Error
+					});
 		        }
 			  })
 			  .catch(function (error) {
@@ -294,16 +316,8 @@ function createResultsMarkup(resultsObj){
 		      }
 		    var content = $("<div>", {class:"content"}); //content container
 		      var header = $("<div>", {class:"header", html: this.title}); //Setting title
-		      if (!isFieldNullOrEmpty(this.release_date)) { // CHecking if release date is valid
-		      	var date = $("<div>", {class:"meta", html: this.release_date}); // Setting release date
-		      } else {
-		      	var date = $("<div>", {class:"meta", html: "Not Available"}); // Setting not available
-		      }
-		      if (!isFieldNullOrEmpty(this.overview)) { // Checking valid overview
-		      	var description = $("<div>", {class:"description", html: this.overview}); // Setting overview
-		      } else {
-		      	var description = $("<div>", {class:"description", html: "Not Available"}); // Setting not available
-		      }
+		      var date = $("<div>", {class:"meta", html: returnNAString(this.release_date)}); // Setting release date
+		      var description = $("<div>", {class:"description", html: returnNAString(this.overview)}); // Setting overview
 		    var extraContent = $("<div>", {class:"extra content"}); // EXtra content container 
 	        if(!isFieldNullOrEmpty(this.vote_average) && this.vote_average!=0){ // If rating is valid
 	        	/*Initializing progress bar */
@@ -349,12 +363,138 @@ function createResultsMarkup(resultsObj){
 	});
 }
 
+/* This function generates the cast cards for the compare page */
+function createCastMarkup(value) {
+	var card = $("<div>", {class: "card"});
+	  var imageContainer = $("<div>", {class: "image"});
+	    var image = $("<img>", {src: "https://image.tmdb.org/t/p/w780" + value.profile_path});
+	  var content = $("<div>", {class: "content"});
+	    var celebrity = $("<div>", {class: "header", html: value.name});
+	    var character = $("<div>", {class: "meta", html: value.character});
+
+	content.append(celebrity).append(character);
+	imageContainer.append(image);
+	card.append(imageContainer).append(content);
+	return card;
+}
+
+/* This function adds the cast cards to the target */
+function addCastMarkup(object, target) {
+	var limit=4;
+	if(object.length==0){
+		target.html("Not Available"); // If no cast info available
+	}
+	$.each(object, function(index, value){ // Loop on each cast member
+		if (isFieldNullOrEmpty(value.profile_path)) {
+			limit++;
+			return true;
+		}
+		if (index==limit) return false; // Run for only top 4 cast members
+		target.append(createCastMarkup(value)); // add the markup to the target
+    });
+}
+
+/* This function creates the rating bar markup for the compare page */
+function createRatingMarkup(value) {
+
+	if(!isFieldNullOrEmpty(this.vote_average) && this.vote_average!=0){ // If rating is valid
+	  /*Initializing progress bar */
+      var progressContainer = $("<div>", {class: "ui small indicating progress active"}).attr("data-percent", value.vote_average).attr("data-tooltip","User Rating").attr("data-inverted","");
+	  var progressBar = $("<div>", {class:"bar", style:"transition-duration:300ms;width:" + (value.vote_average*10) + "%;"});
+	    var progress = $("<div>", {class:"progress"});
+	  var progressLabel = $("<div>", {class: "label", html: (value.vote_average*10) + "%"});
+    } else { // If not rated
+	          /* Setting progress bar to 0% Not rated */
+      var progressContainer = $("<div>", {class:"ui small indicating progress active"}).attr("data-percent", 0).attr("data-tooltip","User Rating").attr("data-inverted","");
+      var progressBar = $("<div>", {class:"bar", style:"transition-duration:300ms;width:"+ 0 + "%;"});
+        var progress = $("<div>", {class:"progress"});
+  	  var progressLabel = $("<div>", {class: "label", html: "Not Rated"});		
+    }
+
+	progressBar.append(progress);
+	progressContainer.append(progressBar).append(progressLabel);
+	return progressContainer; 
+}
+
+/* This function generates markup for the genres on the compare page */
+function addGenresMarkup(object, target) {
+	if(object.length==0){
+		target.html("Not Available"); // If no cast info available
+	}
+	$.each(object, function(index, value){ // Loop on each cast member 
+		var progressLabel = $("<p>", {class: "ui inverted segment inlineBlock", html: value.name}); 
+		if (index==4) return false; // Run for only top 4 cast members
+		target.append(progressLabel); // add the markup to the target
+    });
+	
+}
+
+/* This function adjusts the heights of the cast cards on the compare page */
+function adjustCardHeights(){
+	/* Adjusting cast card height to match either column */
+	var maxheight=0;
+	var currentHeight=0;
+	$(".mainCards .card").each(function(){ // Looping over all cast cards
+		currentHeight=$(this).outerHeight();
+		if(currentHeight > maxheight) // Finding the max height
+		maxheight = currentHeight;
+	});
+	$(".mainCards .card").css("cssText", "height:" + maxheight + "px !important"); // Setting all cards to max height 
+	adjustHeights($(".first .mainCards > .header"), $(".second .mainCards > .header")); // Adjusting the header heights
+	adjustHeights($(".first .genres"), $(".second .genres")); // Adjusting the genres heights  
+	adjustHeights($(".poster-1"), $(".poster-2")); // Poster Image heights
+	adjustHeights($(".cast-cards-1"), $(".cast-cards-2")); // Poster Image heights
+	adjustHeights($(".description-1"), $(".description-2")); // Poster Image heights
+}
+
+/* This function builds the markup for the compare page */
+function buildComparePageMarkup () {
+	var title_1 = JSON.parse(localStorage.getItem("title_1"));
+  	var title_2 = JSON.parse(localStorage.getItem("title_2"));
+  	var cast_1 = JSON.parse(localStorage.getItem("cast_1"));
+  	var cast_2 = JSON.parse(localStorage.getItem("cast_2"));
+  	$(".title-1").html(title_1.data.title);
+  	$(".title-2").html(title_2.data.title);
+  	$(".date-1").html(returnNAString(title_1.data.release_date));
+  	$(".date-2").html(returnNAString(title_2.data.release_date));
+  	if(!isFieldNullOrEmpty(title_1.data.poster_path)) { // Checking if poster URL is valid 
+  		$(".poster-1").attr("src", "https://image.tmdb.org/t/p/w780" + title_1.data.poster_path);
+  	} else {
+  		$(".poster-1").attr("src", "images/fallback.png"); // Fallback image
+  	}
+  	if(!isFieldNullOrEmpty(title_1.data.poster_path)) { // Checking if poster URL is valid
+  		$(".poster-2").attr("src", "https://image.tmdb.org/t/p/w780" + title_2.data.poster_path);
+  	} else {
+  		$(".poster-2").attr("src", "images/fallback.png"); // Fallback image
+  	}
+  	$(".description-1").html(returnNAString(title_1.data.overview));
+  	$(".description-2").html(returnNAString(title_2.data.overview));
+
+  	addCastMarkup(cast_1.data.cast, $(".cast-cards-1")); // Adding cast markup for title 1 
+  	addCastMarkup(cast_2.data.cast, $(".cast-cards-2")); // Adding cast markup for title 2
+
+  	$(".rating-1").html(createRatingMarkup(title_1.data)); // Adding rating bar for title 1
+  	$(".rating-2").html(createRatingMarkup(title_2.data)); // Adding rating bar for title 2
+
+  	addGenresMarkup(title_1.data.genres, $(".genres-1")); // Adding genres markup for title 1 
+  	addGenresMarkup(title_2.data.genres, $(".genres-2")); // Adding genres markup for title 2
+}
+
 /* Function that checks if a field is null or empty */
 function isFieldNullOrEmpty(field) {
 	if (typeof field !=undefined && field!=null && field!="") {
 		return false; // Not null or empty
 	} else {
 		return true; // Null or empty or undefined
+	}
+}
+
+/* This function returns 'not available' if data is null or empty */
+function returnNAString(field){
+	if (isFieldNullOrEmpty(field)) { //checking if null or empty
+		return "Not Available"; // Not available
+	} else {
+		return field; // reutning same field
 	}
 }
 
@@ -372,6 +512,11 @@ $(document).ready(function(){
   	$(".masthead-image").height($(".masthead").outerHeight());
   }
 
+  /* Defining logo click action */
+  $(".logo").click(function(){
+    window.location.href = "index.html"; // Sending back home
+  });
+
   /* If results page is loaded */
   if($("#results-page").length!=0){
   	var results = JSON.parse(localStorage.getItem("results"));
@@ -386,11 +531,10 @@ $(document).ready(function(){
   	}
   }
 
-  /* Defining logo click action */
-  $(".logo").click(function(){
-    window.location.href = "index.html"; // Sending back home
-  });
-
+  /* Checking for compare page */
+  if($("#compare-page").length!=0){
+  	buildComparePageMarkup();
+  }
   /* Binding the click of the Search button */
   $("#search-form").on('submit', function(event){
   	event.preventDefault();
@@ -466,20 +610,6 @@ $(document).ready(function(){
   if($('.ratingIcon').length!=0)
   $('.ratingIcon').popup();
 
-  /* Adjusting cast card height to match either column */
-  if($('.first').length!=0) {
-  	var maxheight=0;
-  	var currentHeight=0;
-  	$(".mainCards .card").each(function(){ // Looping over all cast cards
-  		currentHeight=$(this).outerHeight();
-  		if(currentHeight > maxheight) // Finding the max height
-  		maxheight = currentHeight;
-  	});
-  	$(".mainCards .card").css("cssText", "height:" + maxheight + "px !important"); // Setting all cards to max height 
-    adjustHeights($(".first .mainCards > .header"), $(".second .mainCards > .header")); // Adjusting the header heights
-    adjustHeights($(".first .genres"), $(".second .genres")); // Adjusting the genres heights
-  }
-
   /* Binding the click of the scroll down button to take the user to the details section of the cards */
   $("#scroll-to-comparison").click(function(){
     this.blur(); // Removing focus from the clicked button
@@ -534,6 +664,7 @@ $(window).on('load', function(){
 	if($(this).width()<=600) { // Checking for mobile device
 		$(".breadcrumb").removeClass("huge"); // Making breadcrumbs small if mobile device
 	}
+	if($("#compare-page").length!=0) adjustCardHeights();
 });
 
 /* Resizing the ghost container if the window is resized */

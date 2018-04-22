@@ -48,7 +48,7 @@
         <div id="search" class="sixteen wide column">
           <form id="search-form" action="results.html" method="post">
             <div class="ui fluid action large input">
-              <input type="text" placeholder="Search for Movies, TV Series..." value="">
+              <input  id="main-search-field" type="text" placeholder="Search for Movies, TV Series..." value="">
               <button class="ui blue right labeled icon large button gradientColor">
                 <i class="search icon"></i>
                 Search
@@ -58,7 +58,7 @@
         </div>
       </div>
       <div class="row">
-        <h3 class="ui left floated header resultsLine marginLeft15">Comparing 'Speed' and 'Speed Racer':</h3>
+        <h3 class="ui left floated header resultsLine marginLeft15">Comparing '<span class="title-1">Speed</span>' and '<span class="title-2">Speed Racer</span>':</h3>
         <button id="scroll-to-comparison" class="ui right floating right labeled icon button darkGradientColor">
           <i class="down arrow icon"></i>
           Scroll to details
@@ -72,79 +72,28 @@
        <div class="column first">
           <div class="ui fluid raised card comparing">
             <div class="image">
-              <img src="images/mockup-images/movie-1.jpg">
+              <img class="poster-1" src="">
             </div>
             <div class="content mainCards">
-              <div class="header sticky">Speed</div>
+              <div class="header sticky title-1">Speed</div>
               <div class="meta">
-                <p>June 9, 1994</p>
+                <p class="date-1">June 9, 1994</p>
                 <h5>Top Cast:</h5>
-                <div class="ui stackable cards cast">
-                  <div class="card">
-                    <div class="image">
-                      <img src="images/mockup-images/cast-1.jpg">
-                    </div>
-                    <div class="content">
-                      <div class="header">Keanu Reeves</div>
-                      <div class="meta">
-                        Jack Traven
-                      </div>
-                    </div>
-                  </div>
-                  <div class="card">
-                    <div class="image">
-                      <img src="images/mockup-images/cast-2.jpg">
-                    </div>
-                    <div class="content">
-                      <div class="header">Dennis Hopper </div>
-                      <div class="meta">
-                        Howard Payne
-                      </div>
-                    </div>
-                  </div>
-                  <div class="card">
-                    <div class="image">
-                      <img src="images/mockup-images/cast-3.jpg">
-                    </div>
-                    <div class="content">
-                      <div class="header">Sandra Bullock</div>
-                      <div class="meta">
-                        Annie Porter
-                      </div>
-                    </div>
-                  </div>
-                  <div class="card">
-                    <div class="image">
-                      <img src="images/mockup-images/cast-4.jpg">
-                    </div>
-                    <div class="content">
-                      <div class="header">Joe Morton</div>
-                      <div class="meta">
-                        Capt. McMahon
-                      </div>
-                    </div>
-                  </div>
+                <div class="ui stackable cards cast cast-cards-1">
+                  <!-- Dynamically generated cast cards will be inserted here -->
                 </div>
                 <h5>Genres:</h5>
-                <div class="genres">
-                  <p class="ui inverted segment inlineBlock">Action</p>
-                  <p class="ui inverted segment inlineBlock">Crime</p>
-                  <p class="ui inverted segment inlineBlock">Adventure</p>
+                <div class="genres genres-1">
+                  <!-- Dynamically generated Genres will appear here -->
                 </div>
                 <h5>Description:</h5>
               </div>
-              <div class="description">
-                Los Angeles SWAT cop Jack Traven is up against bomb expert Howard Payne, who's after major ransom money. First it's a rigged elevator in a very tall building. Then it's a rigged bus--if it slows, it will blow, bad…
+              <div class="description description-1">
+                <!-- Dynamically generated Description will appear here -->
               </div>
             </div>
-            <div class="extra content">
-              <!-- Rating -->
-              <div class="ui small indicating progress active" data-percent="90" data-tooltip="User Rating" data-inverted="">
-                <div class="bar" style="transition-duration: 300ms; width: 90%;">
-                  <div class="progress"></div>
-                </div>
-                <div class="label">90%</div>
-              </div>
+            <div class="extra content rating-1">
+              <!-- Rating Dynamic Content will appear here -->
             </div>
             <div class="extra content">
               <div class="ui two buttons">
@@ -161,79 +110,28 @@
         <div class="column second">
           <div class="ui fluid raised card comparing">
             <div class="image">
-              <img src="images/mockup-images/movie-2.jpg">
+              <img class="poster-2" src="">
             </div>
             <div class="content mainCards">
-              <div class="header sticky">Speed Racer</div>
+              <div class="header sticky title-2">Speed Racer</div>
               <div class="meta">
-                <p>May 9, 2008</p>
+                <p class="date-2">May 9, 2008</p>
                 <h5>Top Cast:</h5>
-                <div class="ui stackable cards cast">
-                  <div class="card">
-                    <div class="image">
-                      <img src="images/mockup-images/cast-6.jpg">
-                    </div>
-                    <div class="content">
-                      <div class="header">Emile Hirsch</div>
-                      <div class="meta">
-                        Speed Racer 
-                      </div>
-                    </div>
-                  </div>
-                  <div class="card">
-                    <div class="image">
-                      <img src="images/mockup-images/cast-7.jpg">
-                    </div>
-                    <div class="content">
-                      <div class="header">Christina Ricci</div>
-                      <div class="meta">
-                        Trixie
-                      </div>
-                    </div>
-                  </div>
-                  <div class="card">
-                    <div class="image">
-                      <img src="images/mockup-images/cast-8.jpg">
-                    </div>
-                    <div class="content">
-                      <div class="header">Matthew Fox</div>
-                      <div class="meta">
-                        Racer X
-                      </div>
-                    </div>
-                  </div>
-                  <div class="card">
-                    <div class="image">
-                      <img src="images/mockup-images/cast-9.jpg">
-                    </div>
-                    <div class="content">
-                      <div class="header">Susan Sarandon</div>
-                      <div class="meta">
-                        Mom Racer
-                      </div>
-                    </div>
-                  </div>
+                <div class="ui stackable cards cast cast-cards-2">
+                  <!-- Dynamically generated cast cards will be inserted here -->
                 </div>
                 <h5>Genres:</h5>
-                <div class="genres">
-                  <p class="ui inverted segment inlineBlock">Action</p>
-                  <p class="ui inverted segment inlineBlock">Family</p>
-                  <p class="ui inverted segment inlineBlock">Science Fiction</p>
+                <div class="genres genres-2">
+                  <!-- Dynamically generated Genres will appear here -->
                 </div>
                 <h5>Description:</h5>
               </div>
-              <div class="description">
-                Speed Racer is the tale of a young and brilliant racing driver. When corruption in the racing leagues costs his brother his life, he must team up with the police and the mysterious Racer X to bring an end to the…
+              <div class="description description-2">
+                <!-- Dynamically generated Description will appear here -->
               </div>
             </div>
-            <div class="extra content">
-              <!-- Rating -->
-              <div class="ui small indicating progress active" data-percent="80" data-tooltip="User Rating" data-inverted="">
-                <div class="bar" style="transition-duration: 300ms; width: 80%;">
-                  <div class="progress"></div>
-                </div>
-                <div class="label">80%</div>
-              </div>
+            <div class="extra content rating-2">
+              <!-- Rating Dynamic Content will appear here -->
             </div>
             <div class="extra content">
               <div class="ui two buttons">
