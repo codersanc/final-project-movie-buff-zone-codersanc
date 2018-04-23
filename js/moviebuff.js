@@ -141,7 +141,7 @@ function removeFromCompare (addToCompareButton, comparatorBar, token) {
 
   /* If 2 items have already been added for compare */
   if(comparatorBar.find("span").length == 0) {
-    comparatorBar.fadeOut("1000");
+    comparatorBar.fadeOut("500");
     $("div").last().prev().css("margin-bottom", "60px");
   }
 }
@@ -176,12 +176,25 @@ function createCompareToken (addToCompareButton, comparatorBar) {
 
 /* This function takes the user to the details page of the movie */
 function showDetails(button) {
+	$("#fakeLoader").fadeIn();
+	/* First get call to obtain movie details */
 	axios.get('https://api.themoviedb.org/3/movie/' + $(button).next().attr('data') + '?api_key=03f36b1d285bb38db672a6c9beac463a&language=en-US')
 	  .then(function (response) {
 	  	if (response!=null) {
 		  	/* Setting Response into local storage */
 		    localStorage.setItem('details', JSON.stringify(response));
-		    window.location.href="details.html";  // Redirecting to Details page
+		    /* Second Get call to obtain cast */
+		    axios.get('https://api.themoviedb.org/3/movie/' + $(button).next().attr('data') + '/credits?api_key=03f36b1d285bb38db672a6c9beac463a&language=en-US')
+			  .then(function (response) {
+			  	if (response!=null) {
+				  	/* Setting Response into local storage */
+				    localStorage.setItem('cast', JSON.stringify(response));
+				    window.location.href="details.html";  // Redirecting to Details page
+		        }
+			  })
+			  .catch(function (error) {
+			    // console.log(error); Error
+			});
         }
 	  })
 	  .catch(function (error) {
@@ -191,6 +204,7 @@ function showDetails(button) {
 
 /* his function takes the user to the comparison page */
 function comparisonPage(){
+	$("#fakeLoader").fadeIn();
 	/* First Get call to obtain first title details */
 	axios.get('https://api.themoviedb.org/3/movie/' + compareItems[0] + '?api_key=03f36b1d285bb38db672a6c9beac463a&language=en-US')
 	  .then(function (response) {
@@ -396,13 +410,12 @@ function addCastMarkup(object, target) {
 
 /* This function creates the rating bar markup for the compare page */
 function createRatingMarkup(value) {
-
-	if(!isFieldNullOrEmpty(this.vote_average) && this.vote_average!=0){ // If rating is valid
+	if(!isFieldNullOrEmpty(value) && value!=0){ // If rating is valid
 	  /*Initializing progress bar */
-      var progressContainer = $("<div>", {class: "ui small indicating progress active"}).attr("data-percent", value.vote_average).attr("data-tooltip","User Rating").attr("data-inverted","");
-	  var progressBar = $("<div>", {class:"bar", style:"transition-duration:300ms;width:" + (value.vote_average*10) + "%;"});
+      var progressContainer = $("<div>", {class: "ui small indicating progress active"}).attr("data-percent", value).attr("data-tooltip","User Rating").attr("data-inverted","");
+	  var progressBar = $("<div>", {class:"bar", style:"transition-duration:300ms;width:" + (value*10) + "%;"});
 	    var progress = $("<div>", {class:"progress"});
-	  var progressLabel = $("<div>", {class: "label", html: (value.vote_average*10) + "%"});
+	  var progressLabel = $("<div>", {class: "label", html: (value*10) + "%"});
     } else { // If not rated
 	          /* Setting progress bar to 0% Not rated */
       var progressContainer = $("<div>", {class:"ui small indicating progress active"}).attr("data-percent", 0).attr("data-tooltip","User Rating").attr("data-inverted","");
@@ -427,6 +440,105 @@ function addGenresMarkup(object, target) {
 		target.append(progressLabel); // add the markup to the target
     });
 	
+}
+
+/* This function adds more details (director and screenplay) to the movie details page */
+function createMoreDetails(crew){
+	var director = "";
+	var screenplay = "";
+	/* Iterating on the crew array */
+	$.each(crew, function(index, value){
+		if (value.job === "Director") { // For directors
+			if(director=="") { // If first director
+				director+= value.name; // Add director name
+			} else {
+				director+= (", " + value.name); // Add comma separated director name
+			}
+		}
+		if (value.job === "Screenplay") { // FOr screenplay
+			if(screenplay=="") {
+				screenplay+= value.name; // Add screenplay writer name
+			} else {
+				screenplay+= (", " + value.name); // Add comma separated screenplay writer name
+			}
+		}
+	});
+	$(".movie-director").html(director); // Push into DOM
+	$(".movie-screenplay").html(screenplay); // Push into DOM
+}
+
+/* This function generates the css text for the masthead image */
+function generateMastheadCSS(path) {
+	var cssText = "background-size: cover !important;";
+	cssText += "background: linear-gradient(to bottom,rgba(0, 0, 0, 0.80), rgba(0, 0, 0, 0.50)), url('https://image.tmdb.org/t/p/w780" + path + "') no-repeat !important;";
+	cssText += "-webkit-filter: blur(10px);";
+	cssText += "-moz-filter: blur(10px)";
+	cssText += "-o-filter: blur(10px)";
+	cssText += "-ms-filter: blur(10px);";
+	cssText += "filter: blur(10px);";
+	cssText += "position:absolute;";
+	cssText += "top:0;";
+	cssText += "left:0;";
+	cssText += "overflow: hidden;";
+	cssText += "transform: scale(1.1);";
+	cssText += "max-width: 100%;";
+	cssText += "width: 100% !important;";
+	cssText += "overflow: hidden !important;";
+	return cssText;
+}
+
+/* This function sets up the masthead  */
+function setupMasthead(imagePath){
+	$(".masthead-image").width($(".masthead").outerWidth());
+	$(".masthead-image").css("cssText", generateMastheadCSS(imagePath)); // Adding CSS to the masthead image
+	$(".masthead-image").css("background-size", "cover");
+	$(".masthead-image").height($("#masthead-content").outerHeight());
+	$(".masthead-image").css("overflow","hidden");
+}
+
+/* Function converts time in minutes to proper format */
+function formatDuration(timeInMinutes) {
+	if(isFieldNullOrEmpty(timeInMinutes) || timeInMinutes == 0) return "Not Available"; // Return if time is zero or null
+    var minutes = timeInMinutes % 60; // Minutes component
+    var hours = Math.floor(timeInMinutes / 60); // Hours component
+    return hours + "h " + minutes + "m"; // Formatted duration
+}
+
+/* Function to format currency */
+function formatCurrency(currency) {
+	if (isFieldNullOrEmpty(currency) || currency == 0) return "Not Available";
+	return '$' + currency.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+}
+
+/* Function to format date */
+function formatDate(date) {
+	var splitDate = date.split("-"); // YYYY-MM-DD
+	var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]; // Months Array
+	return months[parseInt(splitDate[1])-1] + " " + splitDate[2] + ", " + splitDate[0]; 
+}
+
+/* This function creates the markup for movie-details page */
+function createDetailsMarkup() {
+	/* Parsing JSONs */
+	var details = JSON.parse(localStorage.getItem("details"));
+	var cast = JSON.parse(localStorage.getItem("cast"));
+	/* Adding initial data */
+	$(".movie-title").html(details.data.title);
+	$(".movie-year").html("("+details.data.release_date.split("-")[0]+")");
+	$(".movie-overview").html(details.data.overview);
+	$(".movie-status").html(details.data.status);
+	$(".movie-date").html(formatDate(details.data.release_date));
+	$(".movie-budget").html(formatCurrency(details.data.budget));
+	$(".movie-revenue").html(formatCurrency(details.data.revenue));
+	if(!isFieldNullOrEmpty(details.data.poster_path)) $("#poster").attr("src", "https://image.tmdb.org/t/p/w780" + details.data.poster_path);
+	/* Calling external functions to add data */
+	addGenresMarkup(details.data.genres, $(".movie-genres")); // setting movie genres
+	addCastMarkup(cast.data.cast, $(".movie-cast")); // Setting movie cast
+	$(".movie-rating").replaceWith(createRatingMarkup(details.data.vote_average)); // setting rating
+	createMoreDetails(cast.data.crew); // Setting the director and screenplay
+	setupMasthead(details.data.backdrop_path); // Setting up the masthead
+	$(".movie-duration").html(formatDuration(details.data.runtime)); // Setting Duration
+
 }
 
 /* This function adjusts the heights of the cast cards on the compare page */
@@ -473,8 +585,8 @@ function buildComparePageMarkup () {
   	addCastMarkup(cast_1.data.cast, $(".cast-cards-1")); // Adding cast markup for title 1 
   	addCastMarkup(cast_2.data.cast, $(".cast-cards-2")); // Adding cast markup for title 2
 
-  	$(".rating-1").html(createRatingMarkup(title_1.data)); // Adding rating bar for title 1
-  	$(".rating-2").html(createRatingMarkup(title_2.data)); // Adding rating bar for title 2
+  	$(".rating-1").html(createRatingMarkup(title_1.data.vote_average)); // Adding rating bar for title 1
+  	$(".rating-2").html(createRatingMarkup(title_2.data.vote_average)); // Adding rating bar for title 2
 
   	addGenresMarkup(title_1.data.genres, $(".genres-1")); // Adding genres markup for title 1 
   	addGenresMarkup(title_2.data.genres, $(".genres-2")); // Adding genres markup for title 2
@@ -503,14 +615,6 @@ $(document).ready(function(){
 
   /* Added window load animation */
   $("body").fadeIn(1000);
-  
-  /* Settibg nasthead image dimensions */
-  $(".masthead-image").width($(".masthead").outerWidth());
-  if($(window).width()<=600) {
-  	//$(".masthead-image").height($("#masthead-content").outerHeight());
-  } else {
-  	$(".masthead-image").height($(".masthead").outerHeight());
-  }
 
   /* Defining logo click action */
   $(".logo").click(function(){
@@ -535,6 +639,12 @@ $(document).ready(function(){
   if($("#compare-page").length!=0){
   	buildComparePageMarkup();
   }
+
+  /* Checking for details page */
+  if($("#details-page").length!=0){
+  	createDetailsMarkup();
+  }
+
   /* Binding the click of the Search button */
   $("#search-form").on('submit', function(event){
   	event.preventDefault();
@@ -544,6 +654,7 @@ $(document).ready(function(){
   		// Show error
   		displayErrorToast(inputField);
   	} else {
+  		$("#fakeLoader").fadeIn();
   		/* Using Axios API to send request to TMDB */
   		axios.get('https://api.themoviedb.org/3/search/movie?api_key=03f36b1d285bb38db672a6c9beac463a&query=' + encodeURIComponent(inputField.value))
 		  .then(function (response) {
@@ -553,15 +664,12 @@ $(document).ready(function(){
 			    localStorage.setItem('count', response.data.total_results);
 			    localStorage.setItem('pages', response.data.total_pages);
 			    localStorage.setItem('search-term', inputField.value);
-
-	            window.location.href="results.html";
+	            window.location.href="results.html"; // Navigate to results page
             }
 		  })
 		  .catch(function (error) {
 		    // console.log(error); Error
 		});
-
-  		//this.submit();
   		return false;
   	}
   });
@@ -574,13 +682,13 @@ $(document).ready(function(){
   /* Initializing the particle background on the home page */
   try {
     $('.particle').particleground({
-        dotColor: '#2d3354',
-        lineColor: '#2d3354',
+        dotColor: '#3a4270',
+        lineColor: '#3a4270',
         density: 15000
     });
   } catch (e) {
     // Meaning the particles js has not been loaded
-  }  
+  }
 
   /* Code to toggle filter bar show / hide */
   $("#filters-toggle").click(function(){

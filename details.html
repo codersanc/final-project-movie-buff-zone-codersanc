@@ -41,7 +41,7 @@
               <i class="ui right white chevron icon divider"></i>
               <a class="section" href="results.html">Search Results</a>
               <i class="right chevron icon divider"></i>
-              <div class="active section whiteText">Movie Details: Speed</div>
+              <div class="active section whiteText">Movie Details: <span class="movie-title"><!-- Dynamically generated movie title --></span></div>
             </div>
           </div>
         </div>
@@ -50,7 +50,7 @@
           <div id="search" class="sixteen wide column">
             <form id="search-form" action="results.html" method="post">
               <div class="ui fluid action large input">
-                <input type="text" placeholder="Search for Movies, TV Series...">
+                <input id="main-search-field" type="text" placeholder="Search for Movies, TV Series...">
                 <button class="ui blue right labeled icon large button gradientColor">
                   <i class="search icon"></i>
                   Search
@@ -61,29 +61,27 @@
         </div>
         <div id="details-content" class="row marginTop30">
           <div class = "five wide left floated column">
-            <img id="poster" src="images/mockup-images/movie-1.jpg" class="ui image"/>
+            <img id="poster" src="images/fallback.png" class="ui image"/>
           </div>
           <div class="ten wide column">
-            <h1 class="ui inverted header inlineBlock">Speed</h1><h4 class="ui grey inverted header inlineBlock marginLeft20">(1994)</h4>
+            <h1 class="ui inverted header inlineBlock movie-title"><!-- Dynamically generated title --></h1>
+            <h4 class="ui grey inverted header inlineBlock marginLeft20 movie-year"><!-- Dynamically generated date --></h4>
             <!-- Rating -->
-            <div class="ui small indicating inverted progress active" data-percent="90" data-tooltip="User Rating" data-inverted="">
-              <div class="bar" style="transition-duration: 300ms; width: 90%;">
-                <div class="progress"></div>
-              </div>
-              <div class="label whiteText">90%</div>
+            <div class="ui small indicating inverted progress active movie-rating" data-percent="0" data-tooltip="User Rating" data-inverted="">
+              <!-- Dynamically generated rating -->
             </div>
             <div>
               <h3 class="ui inverted header">Overview</h3>
-              <div class="ui fluid text container whiteText mobileAdjustment">
-                Los Angeles SWAT cop Jack Traven is up against bomb expert Howard Payne, who's after major ransom money. First it's a rigged elevator in a very tall building. Then it's a rigged bus--if it slows, it will blow, bad enough any day, but a nightmare in LA traffic. And that's still not the end.
+              <div class="ui fluid text container whiteText mobileAdjustment movie-overview">
+                <!-- Dynamically generated overview -->
               </div>
             </div>
             <div class="ui fitted divider"></div>
             <div>
               <h3 class="ui inverted header marginTop30">Featured Crew</h3>
               <div class="ui fluid text container whiteText mobileAdjustment">
-                <p>Screenplay: Graham Yost</p>
-                <p>Director: Jan de Bont</p>
+                <p>Screenplay: <span class="movie-screenplay"><!-- Dynamicall generated screenplay --></span></p>
+                <p>Director: <span class="movie-director"><!-- Dynamically generated director --></span></p>
               </div>
             </div>
             <div>
@@ -106,16 +104,16 @@
             <div class="column">
               <h3>Release Information:</h3>
               <p>
-                <i class="us flag"></i>June 9, 1994
+                <i class="us flag"></i><span class="movie-date"></span>
               </p>
               <p>
-                <strong>Status: </strong>Released
+                <strong>Status: </strong><span class="movie-status"></span>
               </p>
               <p>
-                <strong>Budget: </strong>$30,000,000.00
+                <strong>Budget: </strong><span class="movie-budget"></span>
               </p>
               <p>
-                <strong>Revenue: </strong>$350,448,145.00
+                <strong>Revenue: </strong><span class="movie-revenue"></span>
               </p>
             </div>
             <div class="column">
@@ -126,67 +124,24 @@
                 <span>Theatrical</span>
               </p>
               <p>
-                <strong>Runtime: </strong>1h 56m
+                <strong>Runtime: </strong><span class="movie-duration"></span>
               </p>
               <p>
-                <strong>Original Language: </strong>English
+                <strong>Original Language: </strong><span class="movie-language"></span>
               </p>
             </div>
             <div class="column">
               <h3>Genres:</h3>
-              <p class="ui inverted segment inlineBlock">Action</p>
-              <p class="ui inverted segment inlineBlock">Crime</p>
-              <p class="ui inverted segment inlineBlock">Adventure</p>
+              <div class="movie-genres genres">
+                <!-- Dynamically generated genres list -->
+              </div>
             </div>
           </div>
           <div class="row marginTop30 detailsRaisedRow">
             <div class="column">
               <h3 class="ui header">Top Cast:</h3>
-              <div class="ui four column eqal width doubling cards cast">
-                <div class="card">
-                  <div class="image">
-                    <img src="images/mockup-images/cast-1.jpg">
-                  </div>
-                  <div class="content">
-                    <div class="header">Keanu Reeves</div>
-                    <div class="meta">
-                      Jack Traven
-                    </div>
-                  </div>
-                </div>
-                <div class="card">
-                  <div class="image">
-                    <img src="images/mockup-images/cast-2.jpg">
-                  </div>
-                  <div class="content">
-                    <div class="header">Dennis Hopper </div>
-                    <div class="meta">
-                      Howard Payne
-                    </div>
-                  </div>
-                </div>
-                <div class="card">
-                  <div class="image">
-                    <img src="images/mockup-images/cast-3.jpg">
-                  </div>
-                  <div class="content">
-                    <div class="header">Sandra Bullock</div>
-                    <div class="meta">
-                      Annie Porter
-                    </div>
-                  </div>
-                </div>
-                <div class="card">
-                  <div class="image">
-                    <img src="images/mockup-images/cast-4.jpg">
-                  </div>
-                  <div class="content">
-                    <div class="header">Joe Morton</div>
-                    <div class="meta">
-                      Capt. McMahon
-                    </div>
-                  </div>
-                </div>
+              <div class="ui four column eqal width doubling cards cast movie-cast">
+                <!-- Dynamically generated cast -->
               </div>
             </div>
           </div>
