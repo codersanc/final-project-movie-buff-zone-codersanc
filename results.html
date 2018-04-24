@@ -53,6 +53,11 @@
               </button>
             </div>
           </form>
+          <!-- Empty search box error message -->
+          <div class="error-message" hidden="true">
+            <i class="window close icon"></i>
+            Please enter a search term!
+          </div>
         </div>
       </div>
       <!-- Filters -->
@@ -66,24 +71,16 @@
         </div>
       </div>
       <div id="filters-controls" class="row" style="display: none;">
-        <div class="ten wide column"></div>
-        <div class="six wide column">
-          <div class="ui compact menu">  
-            <div class="ui simple dropdown item">
-              Year
-              <i class="dropdown icon"></i>
-              <div class="menu">
-                <!-- Add Items with JavaScript -->
-                <div class="item">2018</div>
-                <div class="item">2017</div>
-              </div>
-            </div>
+        <div class="ten wide right floated column">
+          <div class="ui icon input">
+            <i class="inverted circular check link icon filter-year"></i>
+            <input type="text" placeholder="Enter Year" value="">
           </div>
-          <div class="ui right floated buttons">
-            <label>Show only:</label>
-            <button class="ui toggle button">Movies</button>
-            <button class="ui toggle button">TV Shows</button>
-          </div>
+        </div>
+        <!-- Empty filter box error message -->
+        <div class="filter-error-message" hidden="true">
+          <i class="window close icon"></i>
+          Please enter a valid year! (Between 1900 and now)
         </div>
       </div>
     </div>

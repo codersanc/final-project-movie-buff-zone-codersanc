@@ -42,7 +42,7 @@ function addToCompare(addToCompareButton, comparatorBar) {
   var token = createCompareToken(addToCompareButton, comparatorBar);
 
   /* Setting the title in cookie */
-  setCompareCookie(addToCompareButton);
+  setCompareCookie(addToCompareButton.attr("data"));
 
   /* Binding the 'x' icon on the token to remove it */
   token.find("i").click(function(){
@@ -66,25 +66,62 @@ function addToCompare(addToCompareButton, comparatorBar) {
   }
 }
 
+/* This function checks the cookie for an exisitng title and adds it to the comparator bar */
+function reloadCompareBar() {
+	if(typeof Cookies === 'undefined') // Checking for cookies plugin
+ 	return null;
+	var titles = [];
+	/* Fetching the Cookie */
+	var cookieValue = Cookies.get("titles");
+	if (typeof cookieValue != 'undefined' && !isFieldNullOrEmpty(cookieValue)) {
+	  titles = cookieValue.split(","); // Splitting by comma
+	} else {
+		return null;
+	}
+	if(titles.length==2)
+	$("div.compare").addClass("disabled"); /* Disable other buttons */
+	$.each(titles, function(index, value){ // Loop on each cast member 
+		var tempElement = $("<div>").attr("data", value);
+		/* Changing the compare button to remove button */
+		var addToCompareButton = $("#results-holder").find("[data='"+ value +"']");
+		if(addToCompareButton.length!=0){
+			addToCompareButton.find("i").removeClass("plus").addClass("close");
+			addToCompareButton.find(".visible").text("Remove");
+			addToCompareButton.removeClass("disabled");
+		}
+		var token = createCompareToken(tempElement, $("#comparator-bar"));
+		/* Binding the 'x' icon on the token to remove it */
+		token.find("i").click(function(){
+		  removeFromCompare(addToCompareButton, $("#comparator-bar"), token);
+		  removeCompareCookie(value);
+		});
+	});
+	if(titles.length!=0)
+	$("#comparator-bar").fadeIn(500);
+}
+
 /**
  * This function sets the comparison title in the Cookie
  * 
  * @param {[Object]} addToCompareButton - JQuery object of the compare button that was clicked 
  */
-function setCompareCookie(addToCompareButton){
-  if(typeof Cookies === 'undefined')
+function setCompareCookie(newTitle){
+  if(typeof Cookies === 'undefined') // Checking for cookies plugin
   return null;
   var titles = [];
   /* Fetching the Cookie */
-  var cookieValue = Cookies.get("title");
+  var cookieValue = Cookies.get("titles");
   /* Checking if cookie was stored or null */ 
-  if (typeof cookieValue != 'undefined' && cookieValue!=null) {
+  if (typeof cookieValue != 'undefined' && cookieValue!="") {
     titles = cookieValue.split(","); // Splitting by comma
   }
   /* Adding the new title to the array */
-  titles.push(addToCompareButton.attr("data"));
+  if($.inArray(newTitle, titles)==-1) // Checking if title doesnt already exist
+  titles.push(newTitle); // Pushing new title 
+  
+  cookieValue = titles.join(","); // Joining array elements to form comma separated value
   /* Setting the cookie */
-  Cookies.set('titles', JSON.stringify(titles), {
+  Cookies.set('titles', cookieValue, {
     expires:2
   });
 }
@@ -92,23 +129,24 @@ function setCompareCookie(addToCompareButton){
 /**
  * This function removes the comparison title from the Cookie
  * 
- * @param {[Object]} addToCompareButton - JQuery object of the compare button that was clicked 
+ * @param {[String]} removeTitle - Title string to remove from the cookie 
  */
-function removeCompareCookie(addToCompareButton) {
-  if(typeof Cookies === 'undefined')
+function removeCompareCookie(removeTitle) {
+  if(typeof Cookies === 'undefined') // Checking for cookies plugin 
   return null;
   var titles = [];
   /* Fetching the Cookie */
-  var cookieValue = Cookies.get("title");
-  if (typeof cookieValue != 'undefined' && cookieValue!=null) {
+  var cookieValue = Cookies.get("titles");
+  if (typeof cookieValue != 'undefined' && !isFieldNullOrEmpty(cookieValue)) {
     titles = cookieValue.split(","); // Splitting by comma
   }
   /* Checking at which index the title is */
-  var index = $.inArray(addToCompareButton.attr("data"), titles);
+  var index = $.inArray(removeTitle, titles);
   /* Removing the title from the array */
   if (index>=0) titles.splice(index, 1);
   /* Setting the new array in the cookie */
-  Cookies.set('titles', JSON.stringify(titles), {
+  cookieValue = titles.join(","); // Joining array elements to form comma separated value
+  Cookies.set('titles', cookieValue, {
     expires:2
   });
 }
@@ -133,7 +171,7 @@ function removeFromCompare (addToCompareButton, comparatorBar, token) {
   if (index>=0) compareItems.splice(index, 1);
 
   /* Removing item from cookie */
-  removeCompareCookie(addToCompareButton);
+  removeCompareCookie(addToCompareButton.attr("data"));
 
   /* Enabling all compare buttons as we are no longer at limit */
   $(".compare").removeClass("disabled");
@@ -156,13 +194,13 @@ function removeFromCompare (addToCompareButton, comparatorBar, token) {
 function createCompareToken (addToCompareButton, comparatorBar) {
   /* Created token span */
   var token = $("<span class='ui label transition visible'></span>");
-
+  var tokenData = addToCompareButton.attr("data");
   /* Text Node to be inserted into the token span (Obtained from data attr of the add to compare button) */
-  var tokenContent = addToCompareButton.attr("data").split("_")[1];
-  compareItems.push(addToCompareButton.attr("data"));
+  var tokenContent = tokenData.split("_")[1];
+  compareItems.push(tokenData);
 
   /* Adding token content to the data attr */
-  token.attr("data", addToCompareButton.attr("data").split("_")[0]);
+  token.attr("data", tokenData.split("_")[0]);
 
   /* Created token delete icon */
   var tokenIcon = $("<i class='delete icon'></i>");
@@ -175,16 +213,16 @@ function createCompareToken (addToCompareButton, comparatorBar) {
 }
 
 /* This function takes the user to the details page of the movie */
-function showDetails(button) {
+function showDetails(titleID) {
 	$("#fakeLoader").fadeIn();
 	/* First get call to obtain movie details */
-	axios.get('https://api.themoviedb.org/3/movie/' + $(button).next().attr('data') + '?api_key=03f36b1d285bb38db672a6c9beac463a&language=en-US')
+	axios.get('https://api.themoviedb.org/3/movie/' + titleID + '?api_key=03f36b1d285bb38db672a6c9beac463a&language=en-US')
 	  .then(function (response) {
 	  	if (response!=null) {
 		  	/* Setting Response into local storage */
 		    localStorage.setItem('details', JSON.stringify(response));
 		    /* Second Get call to obtain cast */
-		    axios.get('https://api.themoviedb.org/3/movie/' + $(button).next().attr('data') + '/credits?api_key=03f36b1d285bb38db672a6c9beac463a&language=en-US')
+		    axios.get('https://api.themoviedb.org/3/movie/' + titleID + '/credits?api_key=03f36b1d285bb38db672a6c9beac463a&language=en-US')
 			  .then(function (response) {
 			  	if (response!=null) {
 				  	/* Setting Response into local storage */
@@ -395,6 +433,7 @@ function createCastMarkup(value) {
 /* This function adds the cast cards to the target */
 function addCastMarkup(object, target) {
 	var limit=4;
+	target.html("");
 	if(object.length==0){
 		target.html("Not Available"); // If no cast info available
 	}
@@ -412,7 +451,7 @@ function addCastMarkup(object, target) {
 function createRatingMarkup(value) {
 	if(!isFieldNullOrEmpty(value) && value!=0){ // If rating is valid
 	  /*Initializing progress bar */
-      var progressContainer = $("<div>", {class: "ui small indicating progress active"}).attr("data-percent", value).attr("data-tooltip","User Rating").attr("data-inverted","");
+      var progressContainer = $("<div>", {class: "ui small indicating progress active"}).attr("data-percent", value*10).attr("data-tooltip","User Rating").attr("data-inverted","");
 	  var progressBar = $("<div>", {class:"bar", style:"transition-duration:300ms;width:" + (value*10) + "%;"});
 	    var progress = $("<div>", {class:"progress"});
 	  var progressLabel = $("<div>", {class: "label", html: (value*10) + "%"});
@@ -430,7 +469,8 @@ function createRatingMarkup(value) {
 }
 
 /* This function generates markup for the genres on the compare page */
-function addGenresMarkup(object, target) {
+function createGenresMarkup(object, target) {
+	target.html("");
 	if(object.length==0){
 		target.html("Not Available"); // If no cast info available
 	}
@@ -501,13 +541,14 @@ function formatDuration(timeInMinutes) {
 	if(isFieldNullOrEmpty(timeInMinutes) || timeInMinutes == 0) return "Not Available"; // Return if time is zero or null
     var minutes = timeInMinutes % 60; // Minutes component
     var hours = Math.floor(timeInMinutes / 60); // Hours component
+    if(hours==0) return minutes + "m"; // Formatted duration if hours = 0
     return hours + "h " + minutes + "m"; // Formatted duration
 }
 
 /* Function to format currency */
 function formatCurrency(currency) {
 	if (isFieldNullOrEmpty(currency) || currency == 0) return "Not Available";
-	return '$' + currency.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+	return '$' + currency.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"); // Regular expression to format currency and replace by comma appropriately
 }
 
 /* Function to format date */
@@ -515,6 +556,17 @@ function formatDate(date) {
 	var splitDate = date.split("-"); // YYYY-MM-DD
 	var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]; // Months Array
 	return months[parseInt(splitDate[1])-1] + " " + splitDate[2] + ", " + splitDate[0]; 
+}
+
+/* This function processes the language code and inserts the language name into the field */
+function addLanguage(languageCode) {
+	axios.get('languages.json')
+	  .then(function (response) {
+	  	$(".movie-language").html(response.data[languageCode].name);
+	  })
+	  .catch(function (error) {
+	    $(".movie-language").html("Not Available");
+	});	
 }
 
 /* This function creates the markup for movie-details page */
@@ -532,13 +584,14 @@ function createDetailsMarkup() {
 	$(".movie-revenue").html(formatCurrency(details.data.revenue));
 	if(!isFieldNullOrEmpty(details.data.poster_path)) $("#poster").attr("src", "https://image.tmdb.org/t/p/w780" + details.data.poster_path);
 	/* Calling external functions to add data */
-	addGenresMarkup(details.data.genres, $(".movie-genres")); // setting movie genres
+	createGenresMarkup(details.data.genres, $(".movie-genres")); // setting movie genres
 	addCastMarkup(cast.data.cast, $(".movie-cast")); // Setting movie cast
 	$(".movie-rating").replaceWith(createRatingMarkup(details.data.vote_average)); // setting rating
 	createMoreDetails(cast.data.crew); // Setting the director and screenplay
 	setupMasthead(details.data.backdrop_path); // Setting up the masthead
 	$(".movie-duration").html(formatDuration(details.data.runtime)); // Setting Duration
-
+	/* Fetching the language from languages JSON */
+	addLanguage(details.data.original_language);
 }
 
 /* This function adjusts the heights of the cast cards on the compare page */
@@ -551,16 +604,15 @@ function adjustCardHeights(){
 		if(currentHeight > maxheight) // Finding the max height
 		maxheight = currentHeight;
 	});
-	$(".mainCards .card").css("cssText", "height:" + maxheight + "px !important"); // Setting all cards to max height 
 	adjustHeights($(".first .mainCards > .header"), $(".second .mainCards > .header")); // Adjusting the header heights
 	adjustHeights($(".first .genres"), $(".second .genres")); // Adjusting the genres heights  
+	adjustHeights($(".description-1"), $(".description-2")); // Description heights
 	adjustHeights($(".poster-1"), $(".poster-2")); // Poster Image heights
-	adjustHeights($(".cast-cards-1"), $(".cast-cards-2")); // Poster Image heights
-	adjustHeights($(".description-1"), $(".description-2")); // Poster Image heights
+	adjustHeights($(".cast-cards-1"), $(".cast-cards-2")); // Cast Image heights
 }
 
 /* This function builds the markup for the compare page */
-function buildComparePageMarkup () {
+function createComparePageMarkup () {
 	var title_1 = JSON.parse(localStorage.getItem("title_1"));
   	var title_2 = JSON.parse(localStorage.getItem("title_2"));
   	var cast_1 = JSON.parse(localStorage.getItem("cast_1"));
@@ -588,8 +640,19 @@ function buildComparePageMarkup () {
   	$(".rating-1").html(createRatingMarkup(title_1.data.vote_average)); // Adding rating bar for title 1
   	$(".rating-2").html(createRatingMarkup(title_2.data.vote_average)); // Adding rating bar for title 2
 
-  	addGenresMarkup(title_1.data.genres, $(".genres-1")); // Adding genres markup for title 1 
-  	addGenresMarkup(title_2.data.genres, $(".genres-2")); // Adding genres markup for title 2
+  	createGenresMarkup(title_1.data.genres, $(".genres-1")); // Adding genres markup for title 1 
+  	createGenresMarkup(title_2.data.genres, $(".genres-2")); // Adding genres markup for title 2
+
+  	$(".details-button-1").click(function(){
+  		showDetails(title_1.data.id); // Binding details button for title 1
+  	});
+  	$(".details-button-2").click(function(){
+  		showDetails(title_2.data.id); // Binding details button for title 2
+  	});
+  	$(".cast img").on('load', function(){
+  		adjustCardHeights();
+  		stickyHeaders();
+  	});
 }
 
 /* Function that checks if a field is null or empty */
@@ -623,6 +686,34 @@ $(document).ready(function(){
 
   /* If results page is loaded */
   if($("#results-page").length!=0){
+  	if(!isFieldNullOrEmpty(localStorage.getItem("filter-year"))) {
+  		$("#filters-controls .input input").val(localStorage.getItem("filter-year"));
+  		$("#filters-controls").slideDown("1000");
+		$("#filters-toggle").find("i").removeClass("down");
+		$("#filters-toggle").find("i").addClass("up");
+  	}
+
+	/* Binding year filter box to allow only number */
+	$('#filters-controls .input input').keyup(function () { 
+	    this.value = this.value.replace(/[^0-9\.]/g,''); // regex to replace alphabets with numbers
+	    $(this).parent().removeClass("error"); // removing error class on key press in the input field
+	});
+
+  	/* Binding the year filter */
+  	$(".filter-year").click(function(){
+  		var date = new Date();
+  		var inputYear = $("#filters-controls .input input").val();
+  		if(parseInt(inputYear) > date.getFullYear() || parseInt(inputYear) < 1900) {
+  			$(this).parent().addClass("error"); // Adding error class to field
+			if($(".filter-error-message").is(":hidden")) { // Only if error is not already being displayed
+				$(".filter-error-message").slideDown().delay(2000).slideUp(); // SHow error toast
+			}
+  		} else {
+  			localStorage.setItem("filter-year", $("#filters-controls .input input").val());
+  			$("#search-form").submit();
+  		}
+  	});
+
   	var results = JSON.parse(localStorage.getItem("results"));
   	if (results.data!=null && results.data.results!=null) { // Checking if results are present 
   		createResultsMarkup(results.data.results); // Calling function to parse the JSON and create markup
@@ -630,6 +721,7 @@ $(document).ready(function(){
   		$("#search-term").html(localStorage.getItem("search-term"));
   		$("#results-count").html(localStorage.getItem('count'));
 		// localStorage.getItem('pages');
+  		reloadCompareBar(); // Reload compare bar
   	} else {
   		// Show Zero Results 
   	}
@@ -637,7 +729,7 @@ $(document).ready(function(){
 
   /* Checking for compare page */
   if($("#compare-page").length!=0){
-  	buildComparePageMarkup();
+  	createComparePageMarkup();
   }
 
   /* Checking for details page */
@@ -649,6 +741,11 @@ $(document).ready(function(){
   $("#search-form").on('submit', function(event){
   	event.preventDefault();
   	var inputField = document.getElementById("main-search-field");
+  	var params="";
+  	if(!isFieldNullOrEmpty(localStorage.getItem("filter-year"))) {
+  		inputField.value = localStorage.getItem('search-term'); // Resetting the search field value
+  		params="&year=" + localStorage.getItem("filter-year"); // setting param string as filter year
+  	}
   	// Checking validity
   	if (isEmpty(inputField)) {
   		// Show error
@@ -656,7 +753,7 @@ $(document).ready(function(){
   	} else {
   		$("#fakeLoader").fadeIn();
   		/* Using Axios API to send request to TMDB */
-  		axios.get('https://api.themoviedb.org/3/search/movie?api_key=03f36b1d285bb38db672a6c9beac463a&query=' + encodeURIComponent(inputField.value))
+  		axios.get('https://api.themoviedb.org/3/search/movie?api_key=03f36b1d285bb38db672a6c9beac463a&query=' + encodeURIComponent(inputField.value)+ params)
 		  .then(function (response) {
 		  	if (response!=null) {
 			  	/* Setting Response into local storage */
@@ -698,15 +795,19 @@ $(document).ready(function(){
     if(controlsPanel.is(":visible")){
       /* Hiding panel */
       controlsPanel.slideUp("1000");
+      $(this).find("i").removeClass("up");
+      $(this).find("i").addClass("down");
     } else {
       /* Displaying Panel */
       controlsPanel.slideDown("1000");
+      $(this).find("i").removeClass("down");
+      $(this).find("i").addClass("up");
     }
   });
 
   /* Binding the click of results cards - takes to details page */
-  $(".card .primary").click(function(){
-    showDetails(this);
+  $("#results-page .card .primary").click(function(){
+    showDetails($(this).next().attr('data'));
   });
 
   /* Binding the click of compare titles button once movies have been selected */
@@ -733,10 +834,6 @@ $(document).ready(function(){
       scrollTop: $(".detailsRaisedRow").offset().top
     }, 500); // Animating the scroll to the details section of the cards
   });
-
-  /* Compare page: Making sticky headers of cards */
-  if($("#compare-page").length!=0)
-  stickyHeaders();
 
   /* Binding compare / remove buttons to allow add to compare / remove from compare */
   $(".compare").click(function(e){
@@ -772,7 +869,6 @@ $(window).on('load', function(){
 	if($(this).width()<=600) { // Checking for mobile device
 		$(".breadcrumb").removeClass("huge"); // Making breadcrumbs small if mobile device
 	}
-	if($("#compare-page").length!=0) adjustCardHeights();
 });
 
 /* Resizing the ghost container if the window is resized */

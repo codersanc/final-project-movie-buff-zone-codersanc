@@ -20,17 +20,10 @@ body{
 }
 
 /* Styling the comparator bar and its children */
-.error-message {
+#home-page .error-message {
   position: fixed;
   z-index: 9999;
   bottom: 0;
-  width: 100%;
-  margin-bottom: 0;
-  background-color: #9b2b2b;
-  text-align: center;
-  font-size: 1.1em;
-  color: white;
-  line-height: 40px;
 }
 
 
@@ -64,6 +57,14 @@ body{
 /* General class to give a dark gradient background */
 .darkGradientColor {
   background: linear-gradient(to bottom right, #f2f2f2, #c4c4c4) !important; 
+}
+
+.card .image {
+  overflow: hidden;
+}
+
+.card .image img {
+
 }
 
 /* Class for vertically centering main container */
@@ -110,6 +111,16 @@ body{
   float: right;
 }
 
+#filters-controls .input {
+  float: right;
+  width: 150px;
+}
+
+#filters-controls i {
+  cursor: pointer;
+}
+
+
 /* Styling the comparator bar and its children */
 #comparator-bar {
   position: fixed;
@@ -146,6 +157,30 @@ body{
 #results-page #comparator-bar h4 {
   float: none !important;
   display: block !important;
+}
+
+.error-message {
+  width: 100%;
+  margin-bottom: 0;
+  background-color: #9b2b2b;
+  text-align: center;
+  font-size: 1.1em;
+  color: white;
+  line-height: 40px;
+}
+
+.filter-error-message {
+  width: 100%;
+  margin-bottom: 0;
+  background-color: #9b2b2b;
+  text-align: center;
+  font-size: 1.1em;
+  color: white;
+  line-height: 40px;
+}
+
+.dynamic {
+  height: auto !important;
 }
 
 /* Controlling the height of the number of results header */
@@ -397,5 +432,24 @@ body{
   #details-page .mobileAdjustment {
     margin-right: 0px !important;
     margin-left: 0px !important;
+  }
+  #details-page .card .image img {
+    height: 251.25px;
+    width: auto;
+  }
+}
+/* Tablet specific */
+@media (min-width: 768px) and (max-width: 1024px) {
+  #details-page .card .image img {
+    height: 521.25px;
+    width: auto;
+  }
+  #results-page .column .card {
+    height: 100%;
+  }
+   #compare-page #scroll-to-comparison {
+    margin-left: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
 }

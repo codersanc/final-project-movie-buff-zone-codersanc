@@ -57,6 +57,11 @@
                 </button>
               </div>
             </form>
+            <!-- Empty search box error message -->
+            <div class="error-message" hidden="true">
+              <i class="window close icon"></i>
+              Please enter a search term!
+            </div>
           </div>
         </div>
         <div id="details-content" class="row marginTop30">
@@ -67,7 +72,7 @@
             <h1 class="ui inverted header inlineBlock movie-title"><!-- Dynamically generated title --></h1>
             <h4 class="ui grey inverted header inlineBlock marginLeft20 movie-year"><!-- Dynamically generated date --></h4>
             <!-- Rating -->
-            <div class="ui small indicating inverted progress active movie-rating" data-percent="0" data-tooltip="User Rating" data-inverted="">
+            <div class="movie-rating">
               <!-- Dynamically generated rating -->
             </div>
             <div>
