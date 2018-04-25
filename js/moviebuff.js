@@ -54,6 +54,7 @@ function addToCompare(addToCompareButton, comparatorBar) {
     /* Enabling compare button on the comparitor bar */
     $("#comparator-bar button").removeClass("disabled");
     $(".compare").addClass("disabled"); /* Disable other buttons */
+    $(".compare").css("cssText", "pointer-events:auto !important;")
     /* Iterating over list of items added to compare */
     $.each(compareItems, function(index, value){
       /* To keep selected movie buttons enabled */
@@ -78,8 +79,10 @@ function reloadCompareBar() {
 	} else {
 		return null;
 	}
-	if(titles.length==2)
-	$("div.compare").addClass("disabled"); /* Disable other buttons */
+	if(titles.length==2) {
+		$("div.compare").addClass("disabled"); /* Disable other buttons */
+		$(".compare").css("cssText", "pointer-events:auto !important;");
+	}
 	$.each(titles, function(index, value){ // Loop on each cast member 
 		var tempElement = $("<div>").attr("data", value);
 		/* Changing the compare button to remove button */
@@ -917,6 +920,11 @@ $(document).ready(function(){
   /* Binding compare / remove buttons to allow add to compare / remove from compare */
   $(".compare").click(function(e){
   	var compareButton = $(this);
+  	if(compareButton.hasClass("disabled")) {
+  		compareButton.trigger("blur");
+  		$('.ui.modal.max-compare').modal('show'); // Show error modal
+  		return false;
+  	}
   	compareButton.trigger("blur");
     var comparatorBar = $("#comparator-bar");
     var movieTitle = compareButton.attr("data");
