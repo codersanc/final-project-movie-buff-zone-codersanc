@@ -1,60 +1,58 @@
 # Welcome to The Movie Buff Zone!
 
-Hi! This is a prototype of the upcoming '**The Movie Buff Zone**' website (Or MBZ for short).
+Hi! This is '**The Movie Buff Zone**' website (Or MBZ for short).
 
 This is a class project for **LIS-637-01** at **Pratt Institute**
 
-The data seen in this prototype is completely hardcoded for testing purpose. Kindly wait for the official release to see this website in full-fledged action!
+This website uses the tmdb.org api to fetch movie data. More information on the api can be found at - https://developers.themoviedb.org/3
 
 ## Where?
 
-Please access the prototype at the following link - 
+Please access the website at the following link - 
 http://mysite.pratt.edu/~skumar6/MBZ/
 
 ## How?
 
-To use the prototype, the following **3 tasks** can be performed -
+To use the website, the following **4 tasks** can be performed -
 1. Search for a movie title
-2. View the details of a movie title from the search results page
-3. Return to the search results page and add 2 movies for comparison
+2. Filter the search results by year
+3. View the details of a movie title from the search results page
+4. Return to the search results page and add 2 movies for comparison
 
+### Scenario: The weekend is here and you are wondering which movie to watch next. The movie should be relatively new and you wish to compare a few titles to make your decision.
 ### Task 1: Search for a movie title
-
-Note: In this prototype, the data is canned, so please only search using the keyword 'Speed'
 
 Steps -
 1. Open MBZ Homepage - http://mysite.pratt.edu/~skumar6/MBZ/
 2. Click on the **search bar**
-3. Enter text '**speed**' into the **search bar**
+3. Enter text '**Interstellar**' into the **search bar**
 4. Click '**Search**' or hit **Enter** 
 
-### Task 2: View the details of a movie title from the search results page
-
-Note: In this prototype, the data is canned, so please only view details of the movie 'Speed'
+### Task 2: Filter the search results by year
 
 Steps -
-1. From the **search results page** (landed from task 1), scroll down to locate the movie '**Speed**'
-2. In the search result card for the movie '**Speed**', locate the blue button labeled '**Details**'
-3. Click the '**Details**' button for the movie '**Speed**' 
+1. From the **search results page** (landed from task 1), locate the button '**Filters**'
+2. In the newly displayed **year filter field**, click and insert the text - '**2016**'
+3. Click the '**Check**' button to apply the filter
 
-### Task 3: Return to the search results page and add 2 movies for comparison
-
-Note: In this prototype, the data is canned, so please only add movies 'Speed' and 'Speed Racer' for comparison
+### Task 3: View the details of a movie title from the search results page
 
 Steps -
-1. From the **details page** (landed from task 2), either use the **breadcrumbs** to go back to the '**Search results**' page, or use the browser **back button**.
-2. Once on the '**Search Results**' page, scroll down and locate movies '**Speed**' and '**Speed Racer**'
-3. Locate the '**Compare**' button within each of these movies' cards and click them both one by one in any order
-4. You will find a small **black bar** at the bottom of the screen where both the titles '**Speed**' and '**Speed racer**' will be added. 
-5. Locate the blue '**Compare**' button in the **black bar** and click on it
+1. From the filtered **search results page** (obtained from task 2), locate the movie '**Interstellar Wars**'
+2. In the search result card for the movie '**Interstellar Wars**', locate the blue button labeled '**Details**'
+3. Click the '**Details**' button for the movie '**Interstellar Wars**' 
 
-## However
-Kindly note that this is **just a prototype**. Therefore, some features might **not** work at the moment. The data is entirely **canned / hardcoded** for now only for **testing purpose**.
+### Task 4: Return to the search results page and add 2 movies for comparison
 
-List of things **not** working - 
-1. Validation of the Search Field (Homepage)
-2. Filters on the Search Results (Search Results page)
-3. Cookie based retention of the items added for comparing
+Steps -
+1. From the **details page** (landed from task 3), either use the **breadcrumbs** to go back to the '**Search results**' page, or use the browser **back button**.
+2. Once on the '**search results page**', click on the year filter field and clear the value. Then click the '**Check**' button.
+3. The **search results page** will now reload to display the unfiltered results. Locate the movie **Interstellar** and click the **compare** button to add it for comparison.
+4. You will find a small **compare bar** at the bottom of the screen where the title '**Interstellar** will be added. 
+5. For the second title, use the **search bar** above to search for **martian**.
+6. On the **search results page**, notice that the **compare bar** still holds the previously added title - **Interstellar**. Locate the movie **The Martian** and click **compare** to add it for comparison.
+7. Notice that the **compare** button within the **compare bar** is now active. Click this **compare** button to reach the **compare movies page** showing **Interstellar** vs **The Martian**.    
+
 
 ## Author
 Developed by **Sanchit Kumar** (skumar6) https://github.com/codersanc
