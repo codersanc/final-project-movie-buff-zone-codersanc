@@ -436,7 +436,7 @@ function createResultsMarkup(resultsObj){
       var raisedCard = $("<div>", {class: "ui fluid raised card"}); // raised card container
         var imageContainer = $("<div>", {class: "image"}); // Image container
           if(!isFieldNullOrEmpty(this.poster_path)) { // If Path is valid
-            var image = $("<img>", {src: "https://image.tmdb.org/t/p/w185_and_h278_bestv2" + this.poster_path}); // Setting poster image path
+            var image = $("<img>", {src: "https://image.tmdb.org/t/p/w780" + this.poster_path}); // Setting poster image path
           } else { // If path comes as Null
             var image = $("<img>", {src: "images/fallback.png"}); // Using fallback image
           }
