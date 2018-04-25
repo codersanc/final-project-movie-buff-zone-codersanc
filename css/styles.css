@@ -157,6 +157,7 @@ body{
 #results-page #comparator-bar h4 {
   float: none !important;
   display: block !important;
+  padding-left:2px;
 }
 
 .error-message {

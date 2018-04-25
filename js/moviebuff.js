@@ -216,7 +216,7 @@ function createCompareToken (addToCompareButton, comparatorBar) {
 function showDetails(titleID) {
 	$("#fakeLoader").fadeIn();
 	/* First get call to obtain movie details */
-	axios.get('https://api.themoviedb.org/3/movie/' + titleID + '?api_key=03f36b1d285bb38db672a6c9beac463a&language=en-US')
+	axios.get('https://api.themoviedb.org/3/movie/' + titleID + '?api_key=03f36b1d285bb38db672a6c9beac463a&language=en-US&append_to_response=releases')
 	  .then(function (response) {
 	  	if (response!=null) {
 		  	/* Setting Response into local storage */
@@ -569,11 +569,41 @@ function addLanguage(languageCode) {
 	});	
 }
 
+/* This function fetches the description for the certification rating */
+function addCertificationDescription(certification){
+	var flag = false; //  flag to see if the certification was found in the json
+	axios.get('certifications.json') // certification definitions json
+	  .then(function (response) {
+	  	$.each(response.data.certifications, function(index, value){ // looping on certifications
+	  		if(flag) return false;
+	  		$.each(value, function(index, value){
+	  			if(flag) return false;
+		  		if(value.certification == certification){ // checking if certification received from API matches any in JSON
+		  			$(".ratingIcon").attr('data-content', value.meaning);
+		  			$(".ratingIcon").html(value.certification);
+		  			flag = true;
+		  			return false;
+		  		}
+		  	});
+	  	});
+	  	if(!flag) {
+	  		$(".ratingIcon").attr('data-content', ''); // In case of error, setting tooltip as blank
+	  		$(".ratingIcon").html('Not Available'); // In case of error, setting certification as Not available
+	  	}
+	  })
+	  .catch(function (error) {
+	  	// console.log(error);
+	    $(".ratingIcon").attr('data-content', ''); // In case of error, setting tooltip as blank
+	  	$(".ratingIcon").html('Not Available'); // In case of error, setting certification as Not available
+	});	
+}
+
 /* This function creates the markup for movie-details page */
 function createDetailsMarkup() {
 	/* Parsing JSONs */
 	var details = JSON.parse(localStorage.getItem("details"));
 	var cast = JSON.parse(localStorage.getItem("cast"));
+	if (details==null) window.location.href="index.html"; // Go home if no data was set 
 	/* Adding initial data */
 	$(".movie-title").html(details.data.title);
 	$(".movie-year").html("("+details.data.release_date.split("-")[0]+")");
@@ -592,6 +622,8 @@ function createDetailsMarkup() {
 	$(".movie-duration").html(formatDuration(details.data.runtime)); // Setting Duration
 	/* Fetching the language from languages JSON */
 	addLanguage(details.data.original_language);
+	addCertificationDescription(details.data.releases.countries[0].certification);
+	
 }
 
 /* This function adjusts the heights of the cast cards on the compare page */
@@ -617,6 +649,7 @@ function createComparePageMarkup () {
   	var title_2 = JSON.parse(localStorage.getItem("title_2"));
   	var cast_1 = JSON.parse(localStorage.getItem("cast_1"));
   	var cast_2 = JSON.parse(localStorage.getItem("cast_2"));
+  	if (title_1==null || title_2==null) window.location.href="index.html"; // Go home if no data was set 
   	$(".title-1").html(title_1.data.title);
   	$(".title-2").html(title_2.data.title);
   	$(".date-1").html(returnNAString(title_1.data.release_date));
@@ -715,6 +748,7 @@ $(document).ready(function(){
   	});
 
   	var results = JSON.parse(localStorage.getItem("results"));
+  	if (results==null) window.location.href="index.html";
   	if (results.data!=null && results.data.results!=null) { // Checking if results are present 
   		createResultsMarkup(results.data.results); // Calling function to parse the JSON and create markup
   		$("#main-search-field").val(localStorage.getItem("search-term"));
@@ -869,6 +903,8 @@ $(window).on('load', function(){
 	if($(this).width()<=600) { // Checking for mobile device
 		$(".breadcrumb").removeClass("huge"); // Making breadcrumbs small if mobile device
 	}
+	if($("#details-page").length!=0)
+	$(".masthead-image").height($("#masthead-content").outerHeight()); // re adjust masthead image height
 });
 
 /* Resizing the ghost container if the window is resized */
