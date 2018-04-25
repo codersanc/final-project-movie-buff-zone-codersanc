@@ -25,7 +25,7 @@ To use the website, the following **4 tasks** can be performed -
 Steps -
 1. Open MBZ Homepage - http://mysite.pratt.edu/~skumar6/MBZ/
 2. Click on the **search bar**
-3. Enter text '**Interstellar**' into the **search bar**
+3. Enter text '**Conjuring**' into the **search bar**
 4. Click '**Search**' or hit **Enter** 
 
 ### Task 2: Filter the search results by year
@@ -38,21 +38,24 @@ Steps -
 ### Task 3: View the details of a movie title from the search results page
 
 Steps -
-1. From the filtered **search results page** (obtained from task 2), locate the movie '**Interstellar Wars**'
-2. In the search result card for the movie '**Interstellar Wars**', locate the blue button labeled '**Details**'
-3. Click the '**Details**' button for the movie '**Interstellar Wars**' 
+1. From the filtered **search results page** (obtained from task 2), locate the movie '**The Conjuring 2**'
+2. In the search result card for the movie '**The Conjuring 2**', locate the blue button labeled '**Details**'
+3. Click the '**Details**' button for the movie '**The Conjuring 2**'
+4. Scroll down on the **Details Page** to view **Top Cast**
 
 ### Task 4: Return to the search results page and add 2 movies for comparison
 
 Steps -
-1. From the **details page** (landed from task 3), either use the **breadcrumbs** to go back to the '**Search results**' page, or use the browser **back button**.
+1. From the **details page** (landed from task 3), use the **breadcrumbs** to go back to the '**Search results**' page.
 2. Once on the '**search results page**', click on the year filter field and clear the value. Then click the '**Check**' button.
-3. The **search results page** will now reload to display the unfiltered results. Locate the movie **Interstellar** and click the **compare** button to add it for comparison.
-4. You will find a small **compare bar** at the bottom of the screen where the title '**Interstellar** will be added. 
-5. For the second title, use the **search bar** above to search for **martian**.
-6. On the **search results page**, notice that the **compare bar** still holds the previously added title - **Interstellar**. Locate the movie **The Martian** and click **compare** to add it for comparison.
-7. Notice that the **compare** button within the **compare bar** is now active. Click this **compare** button to reach the **compare movies page** showing **Interstellar** vs **The Martian**.    
+3. The **search results page** will now reload to display the unfiltered results. Locate the movie **The Conjuring** and click the **Compare** button within it's card to add it for comparison.
+4. You will find a small **compare bar** at the bottom of the screen where the title '**The Conjuring** will be added. 
+5. For the second title, use the **search bar** above to search for **Insidious**.
+6. On the **search results page**, notice that the **compare bar** still holds the previously added title - **The Conjuring**. Locate the movie **Insidious** and click **compare** to add it for comparison.
+7. Notice that the **compare** button within the **compare bar** is now active. Click this **compare** button to reach the **compare movies page** showing **The Conjuring** vs **Insidious**.
+8. Scroll down to compare details like **Cast**, **Description**, **Release date** etc.
 
+**The Conjuring** is way better right? Let's watch that! 
 
 ## Author
 Developed by **Sanchit Kumar** (skumar6) https://github.com/codersanc
