@@ -1087,6 +1087,7 @@ $(document).ready(function(){
 
 /* Showing the transulcent ghost container once the window is rendered  */
 $(window).on('load', function(){
+  $("#fakeLoader").fadeOut();
   $("#ghost-container").show();
   if($(this).width()<=600) { // Checking for mobile device
     $(".breadcrumb").removeClass("huge"); // Making breadcrumbs small if mobile device
