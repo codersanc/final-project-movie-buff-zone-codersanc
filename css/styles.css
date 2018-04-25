@@ -1,5 +1,6 @@
 body{
   display: none;
+  font-family: 'Roboto', sans-serif !important;
 }
 
 /* Adding a background image to the container */
@@ -26,6 +27,34 @@ body{
   bottom: 0;
 }
 
+/* Styling the footer components */
+#home-page .footer {
+  position: absolute !important;
+  background-color: black;
+}
+
+.footer {
+  position: relative !important;
+  width: 100%;
+  bottom: 0;
+  opacity: 0.6;
+}
+
+.footer .image {
+  left:50%;
+  transform: translateX(-50%);
+}
+
+.footer .image img {
+  -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(100%);
+}
+
+.footer .container{
+  text-align: center;
+  margin-top: 10px;
+  font-size: 10px;
+}
 
 /* Creates a translucent black container behind main div */
 #ghost-container {
@@ -47,6 +76,11 @@ body{
 /* General class for top margins */
 .marginTop30 {
   margin-top: 30px !important;
+}
+
+/* General class for center alignment */
+.centerAlignedText {
+  text-align: center !important;
 }
 
 /* General class to give gradient background */
@@ -160,6 +194,17 @@ body{
   padding-left:2px;
 }
 
+#results-page .zero-results {
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 40px;
+}
+
+#results-page .zero-results-Text {
+  width: 100%;
+  opacity: 0.3;
+}
+
 .error-message {
   width: 100%;
   margin-bottom: 0;
@@ -212,6 +257,11 @@ body{
 }
 
 /* Styling the masthead hero image on the movie details page (Blurred Effect) */
+#masthead-content {
+  margin-top: 0 !important;
+  padding-top: 30px !important;
+}
+
 .masthead-image {
   background-size: cover !important;
 }
@@ -284,7 +334,7 @@ body{
   width: auto !important;
   margin-right: 5px !important;
   margin-left: 5px !important;
-  padding: 5px !important;
+  padding: 5px 15px !important;
 }
 
 /* Styling the cast cards on the compare page */
@@ -309,6 +359,8 @@ body{
 
 .genres p {
   margin-right: 2px !important;
+  margin-bottom: 0px !important;
+  margin-top: 2px !important;
 }
 
 #details-page .ui .progress {
@@ -396,6 +448,9 @@ body{
     margin-left: 15px;
     margin-top: 10px;
     margin-bottom: 10px;
+  }
+  #compare-page h3 {
+    font-size: 15px;
   }
   #compare-page #comparison{
     margin-left: 5px !important;

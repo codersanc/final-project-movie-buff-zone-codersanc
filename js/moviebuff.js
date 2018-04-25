@@ -83,7 +83,7 @@ function reloadCompareBar() {
 	$.each(titles, function(index, value){ // Loop on each cast member 
 		var tempElement = $("<div>").attr("data", value);
 		/* Changing the compare button to remove button */
-		var addToCompareButton = $("#results-holder").find("[data='"+ value +"']");
+		var addToCompareButton = $("#results-holder").find("[data=\""+ value +"\"]");
 		if(addToCompareButton.length!=0){
 			addToCompareButton.find("i").removeClass("plus").addClass("close");
 			addToCompareButton.find(".visible").text("Remove");
@@ -180,7 +180,6 @@ function removeFromCompare (addToCompareButton, comparatorBar, token) {
   /* If 2 items have already been added for compare */
   if(comparatorBar.find("span").length == 0) {
     comparatorBar.fadeOut("500");
-    $("div").last().prev().css("margin-bottom", "60px");
   }
 }
 
@@ -201,15 +200,25 @@ function createCompareToken (addToCompareButton, comparatorBar) {
 
   /* Adding token content to the data attr */
   token.attr("data", tokenData.split("_")[0]);
+  token.attr("data-tooltip", tokenContent);
+  token.attr("data-inverted","");
+  token.attr("data-position","top left");
 
   /* Created token delete icon */
   var tokenIcon = $("<i class='delete icon'></i>");
 
   /* Appending newly created token elements */
-  token.append(tokenContent).append(tokenIcon);
+  token.append(returnTruncatedString(tokenContent, 20)).append(tokenIcon);
   comparatorBar.append(token);
 
   return token;
+}
+
+/* This function truncates strings to a specified limit */
+function returnTruncatedString(string, limit) {
+	if (string.indexOf(" ")==-1 || string.length < 15) return string;
+	return jQuery.trim(string).substring(0, limit)
+    .split(" ").slice(0, -1).join(" ") + "...";
 }
 
 /* This function takes the user to the details page of the movie */
@@ -503,14 +512,26 @@ function createMoreDetails(crew){
 			}
 		}
 	});
-	$(".movie-director").html(director); // Push into DOM
-	$(".movie-screenplay").html(screenplay); // Push into DOM
+	if(director!=""){
+		$(".movie-director").html(director); // Push into DOM
+	} else {
+		$(".movie-director").html("Not Available");
+	}
+	if(screenplay!="") {
+		$(".movie-screenplay").html(screenplay); // Push into DOM
+	} else {
+		$(".movie-screenplay").html("Not Available");
+	}
 }
 
 /* This function generates the css text for the masthead image */
 function generateMastheadCSS(path) {
 	var cssText = "background-size: cover !important;";
-	cssText += "background: linear-gradient(to bottom,rgba(0, 0, 0, 0.80), rgba(0, 0, 0, 0.50)), url('https://image.tmdb.org/t/p/w780" + path + "') no-repeat !important;";
+	if(path!=null) {
+		cssText += "background: linear-gradient(to bottom,rgba(0, 0, 0, 0.80), rgba(0, 0, 0, 0.50)), url('https://image.tmdb.org/t/p/w780" + path + "') no-repeat !important;";
+	} else {
+		cssText += "background: linear-gradient(to bottom,rgba(0, 0, 0, 0.80), rgba(0, 0, 0, 0.50));";
+	}
 	cssText += "-webkit-filter: blur(10px);";
 	cssText += "-moz-filter: blur(10px)";
 	cssText += "-o-filter: blur(10px)";
@@ -560,7 +581,7 @@ function formatDate(date) {
 
 /* This function processes the language code and inserts the language name into the field */
 function addLanguage(languageCode) {
-	axios.get('languages.json')
+	axios.get('data/languages.json')
 	  .then(function (response) {
 	  	$(".movie-language").html(response.data[languageCode].name);
 	  })
@@ -572,7 +593,7 @@ function addLanguage(languageCode) {
 /* This function fetches the description for the certification rating */
 function addCertificationDescription(certification){
 	var flag = false; //  flag to see if the certification was found in the json
-	axios.get('certifications.json') // certification definitions json
+	axios.get('data/certifications.json') // certification definitions json
 	  .then(function (response) {
 	  	$.each(response.data.certifications, function(index, value){ // looping on certifications
 	  		if(flag) return false;
@@ -596,6 +617,13 @@ function addCertificationDescription(certification){
 	    $(".ratingIcon").attr('data-content', ''); // In case of error, setting tooltip as blank
 	  	$(".ratingIcon").html('Not Available'); // In case of error, setting certification as Not available
 	});	
+}
+
+/* This function adds the country name in the flag tooltip */
+function addCountryTooltip(country){
+  	$(".flag").parent().attr('data-tooltip', country);
+  	$(".flag").parent().attr('data-inverted', '');
+  	$(".flag").parent().attr("data-position", "right center");	
 }
 
 /* This function creates the markup for movie-details page */
@@ -622,8 +650,15 @@ function createDetailsMarkup() {
 	$(".movie-duration").html(formatDuration(details.data.runtime)); // Setting Duration
 	/* Fetching the language from languages JSON */
 	addLanguage(details.data.original_language);
-	addCertificationDescription(details.data.releases.countries[0].certification);
 	
+	/* Looping on the releases countries */
+	$.each(details.data.releases.countries, function(index, value){
+		if(value.iso_3166_1 == details.data.production_countries[0].iso_3166_1) {
+			addCertificationDescription(value.certification); // Adding the certifications
+		}
+	});
+	$(".flag").addClass(details.data.production_countries[0].iso_3166_1.toLowerCase()); // Setting the country flag
+	addCountryTooltip(details.data.production_countries[0].name); // adding the country tool tip
 }
 
 /* This function adjusts the heights of the cast cards on the compare page */
@@ -749,7 +784,7 @@ $(document).ready(function(){
 
   	var results = JSON.parse(localStorage.getItem("results"));
   	if (results==null) window.location.href="index.html";
-  	if (results.data!=null && results.data.results!=null) { // Checking if results are present 
+  	if (results.data!=null && results.data.results!=null && results.data.results!=0) { // Checking if results are present 
   		createResultsMarkup(results.data.results); // Calling function to parse the JSON and create markup
   		$("#main-search-field").val(localStorage.getItem("search-term"));
   		$("#search-term").html(localStorage.getItem("search-term"));
@@ -758,6 +793,16 @@ $(document).ready(function(){
   		reloadCompareBar(); // Reload compare bar
   	} else {
   		// Show Zero Results 
+  		$("#main-search-field").val(localStorage.getItem("search-term"));
+  		$("#search-term").html(localStorage.getItem("search-term"));
+  		$("#results-count").html(localStorage.getItem('count'));
+  		var zeroResultsContainer = $("<div>").attr("class","ui small image zero-results");
+  		var zeroResults = $("<img>").attr("src", "images/zero.png");
+  		zeroResultsContainer.append(zeroResults);
+  		$("#results-holder").append(zeroResultsContainer);
+  		$("#results-holder").append($("<p>", {class:"whiteText zero-results-Text centerAlignedText marginTop30", html:"Please try another search term"}));
+  		$(".footer").css("cssText", 'position: absolute !important;bottom:-30px');
+  		
   	}
   }
 
@@ -871,9 +916,10 @@ $(document).ready(function(){
 
   /* Binding compare / remove buttons to allow add to compare / remove from compare */
   $(".compare").click(function(e){
-  	$(this).trigger("blur");
+  	var compareButton = $(this);
+  	compareButton.trigger("blur");
     var comparatorBar = $("#comparator-bar");
-    var movieTitle = $(this).attr("data");
+    var movieTitle = compareButton.attr("data");
     /* Initially disabling compare button on comparitor bar */
     $("#comparator-bar button").addClass("disabled");
     if(compareItems.indexOf(movieTitle)==-1) {
@@ -881,18 +927,22 @@ $(document).ready(function(){
       if(!comparatorBar.is(":visible")) {
         /* Displaying the compare bar */
         comparatorBar.fadeIn("1000");
-        /* Adding margin to the bottom of the page and scrolling in case the compare bar overlaps */
-        $("div").last().prev().css("margin-bottom", "70px");
+        /* Scrolling in case the compare bar overlaps */
         $('html, body').animate({scrollTop: '+=50px'}, 500);
         /* Adding title to compare */
-        addToCompare($(this), comparatorBar);
+        addToCompare(compareButton, comparatorBar);
       } else if (comparatorBar.find("span").length != 2) {
         /* Adding title to compare */
-        addToCompare($(this), comparatorBar);
+        addToCompare(compareButton, comparatorBar);
       }
     } else {
       /* Removing title from compare */
-      removeFromCompare($(this), comparatorBar, $("span[data='" + movieTitle.split("_")[0] + "']"));
+
+      $("span").each(function(){
+      	if ($(this).attr("data") == movieTitle.split("_")[0]) {
+      		removeFromCompare(compareButton, comparatorBar, $(this));
+      	}
+      });
     }
   });
 });

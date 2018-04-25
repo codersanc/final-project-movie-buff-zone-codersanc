@@ -50,7 +50,7 @@
           <div id="search" class="sixteen wide column">
             <form id="search-form" action="results.html" method="post">
               <div class="ui fluid action large input">
-                <input id="main-search-field" type="text" placeholder="Search for Movies, TV Series...">
+                <input id="main-search-field" type="text" placeholder="Search for Movies...">
                 <button class="ui blue right labeled icon large button gradientColor">
                   <i class="search icon"></i>
                   Search
@@ -109,7 +109,7 @@
             <div class="column">
               <h3>Release Information:</h3>
               <p>
-                <i class="us flag"></i><span class="movie-date"></span>
+                <strong>Country &amp; Date: </strong><span><i class="flag"></i></span><span class="movie-date"></span>
               </p>
               <p>
                 <strong>Status: </strong><span class="movie-status"></span>
@@ -125,8 +125,7 @@
               <h3>Other Facts:</h3>
               <p>
                 <strong>Rating: </strong>
-                <span class="ui tiny inverted segment ratingIcon" data-content="Under 17 requires accompanying parent or adult guardian 21 or older. The parent/guardian is required to stay with the child under 17 through the entire movie, even if the parent gives the child/teenager permission to see the film alone. These films may contain strong profanity, graphic sexuality, nudity, strong violence, horror, gore, and strong drug use. A movie rated R for profanity often has more severe or frequent language than the PG-13 rating would permit. An R-rated movie may have more blood, gore, drug use, nudity, or graphic sexuality than a PG-13 movie would admit." data-variation="wide inverted">R</span>
-                <span>Theatrical</span>
+                <span class="ui tiny inverted segment ratingIcon" data-content="" data-variation="wide inverted">R</span>
               </p>
               <p>
                 <strong>Runtime: </strong><span class="movie-duration"></span>
@@ -151,6 +150,15 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+    <!-- Footer -->
+    <div class="ui inverted vertical footer segment">
+      <div class="ui tiny image">
+        <img src="images/powered.png">
+      </div>
+      <div class="ui container">
+          This product uses the TMDb API but is not endorsed or certified by TMDb
       </div>
     </div>
     <!-- Loading up JQuery -->
