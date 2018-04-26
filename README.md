@@ -21,10 +21,10 @@ To use the website, the following **4 tasks** can be performed -
 3. View the details of a movie title from the Search Results Page
 4. Return to the Search Results Page and add 2 movies for comparison
 
-### Scenario: The weekend is here and Terry is wondering which movie to watch. The weather outside is stormy and Terry is in the mood for some horror flicks which she can enjoy cozily! However, she is totally confused about what to watch
+### Scenario: The weekend is here and Terry is wondering which movie to watch. The weather outside is stormy and Terry is in the mood for some horror flicks which she can enjoy cozily! However, she is totally confused about what to watch as her friends had suggested a few titles.
 
 ### Task 1: Search for a movie title
-**Terry remembers that her friends mentioned a good movie called "Conjuring", so she decides to pull up MBZ and search for Conjuring**
+**Terry remembers that her friends mentioned a good movie called "Conjuring", so she decides to pull up MBZ and search for "Conjuring"**
 
 Steps -
 1. Open MBZ Homepage - http://mysite.pratt.edu/~skumar6/MBZ/
@@ -33,7 +33,7 @@ Steps -
 4. Click '**Search**' or hit **Enter** 
 
 ### Task 2: Filter the search results by year
-**Terry wants to watch something new, and she remembers that year 2016 was a great one for movie releases, so she decides to use the year filter**
+**Terry wants to watch something new, and she remembers that year "2016" was a great one for movie releases, so she decides to use the "year filter"**
 
 Steps -
 1. From the '**Search Results Page**'' (landed from task 1), locate the button '**Filters**'
@@ -41,7 +41,7 @@ Steps -
 3. Click the '**Check**' button to apply the filter
 
 ### Task 3: View the details of a movie title from the Search Results Page
-**Terry finds The Conjuring 2, and decides to check its details to see if she can watch it without the prequel**
+**Terry finds "The Conjuring 2", and decides to check its details to see if she can watch it without having watched the prequel**
 
 Steps -
 1. From the filtered '**Search Results Page**' (obtained from task 2), locate the movie '**The Conjuring 2**'
@@ -50,7 +50,7 @@ Steps -
 4. You will now land on the '**Details Page**' for '**The Conjuring 2**'. Scroll down on the '**Details Page**' to view '**Top Cast**'
 
 ### Task 4: Return to the Search Results Page and add 2 movies for comparison
-**Terry feels that The Conjuring 2 would be better to watch after the prequel. So she heads back to the results and removes the filter for '2016' and finds 'The Conjuring' in the unfiltered results. However, she still needs some convincing, so she searches for another title called 'insidious', which her friends had mentioned and decides to compare it with 'The Conjuring' to make a decision**
+**Terry feels that "The Conjuring 2" would be better to watch after she watches the prequel, so she heads back to the results and removes the filter for "2016" and finds "The Conjuring" in the unfiltered results. However, she still needs some convincing, so she searches for another title called "insidious", which her friends had mentioned and decides to compare it with "The Conjuring" to make a decision**
 
 Steps -
 1. From the '**Details Page**' (landed from task 3), use the **breadcrumbs** to go back to the '**Search results**' page.
@@ -62,6 +62,7 @@ Steps -
 7. Notice that the '**Compare**' button within the '**Compare Bar**' is now active. Click this '**Compare**' button to reach the '**compare movies page**' showing '**The Conjuring**' vs '**Insidious**'.
 8. Scroll down to compare details like '**Cast**', '**Description**', '**Release Date**' etc.
 
+**Terry to self:**
 **'The Conjuring'** is way better right? Let's watch that!
 
 ## Notes
