@@ -493,6 +493,9 @@ body{
     height: 251.25px;
     width: auto;
   }
+  #home-page .footer {
+    z-index: -1 !important;
+  }
 }
 /* Tablet specific */
 @media (min-width: 768px) and (max-width: 1024px) {
